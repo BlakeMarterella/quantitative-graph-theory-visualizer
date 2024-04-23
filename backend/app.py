@@ -1,7 +1,8 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 import os
 import requests
 from dotenv import load_dotenv, find_dotenv
+from flask_cors import CORS
 import pandas as pd
 from datetime import datetime
 
@@ -12,8 +13,13 @@ if _env_file:
     
 API_KEY = os.getenv('API_KEY')
 
+# Create a new app
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}}, automatic_options=True)
 
+"""
+Proof of concept first route to test the Flask app
+"""
 @app.route('/')
 def hello_world():
     return "Hello World!"
@@ -22,10 +28,23 @@ def hello_world():
 This route will return the historical stock data 
 for a given ticker symbol.
 
-route: /historical-stock-data
+Route: /historical-stock-data
+Request Type: GET
+Parameters:
+    - symbol: The ticker symbol of the stock (required)
+    - outputsize: The size of the output data (optional, default='full') 
+        options: ['full', 'compact']
+    - outputtype: The type of output data (optional, default='json')
+        options: ['json', 'csv']
+    - start: The start date of the data (optional)
+    - end: The end date of the data (optional)
+        If end date is not specified, it will default to the current date
 """
-@app.route('/historical-stock-data')
+@app.route('/historical-stock-data', methods=['GET', 'OPTIONS'])
 def historical_stock_data():
+    if request.method == 'OPTIONS':
+        return _build_cors_preflight_response()
+    
     symbol = request.args.get('symbol', type=str)
     outputsize = request.args.get('outputsize', default='full', type=str)  # Optional
     outputtype = request.args.get('outputtype', default='json', type=str) # Optional
@@ -93,13 +112,12 @@ def historical_stock_data():
             
         if outputtype == 'json':
             result = df.to_json()
-            return result
+            return jsonify({"data": result}), 200, {'Content-Type': 'application/json'}
         elif outputtype == 'csv':
             # Convert DataFrame back to CSV
             return df.to_csv(), 200, {'Content-Type': 'text/csv'}
     else:
         return jsonify({"error": "Failed to fetch data"}), response.status_code
-
 
 if __name__ == '__main__':
     app.run(debug=True)
