@@ -28,7 +28,7 @@ route: /historical-stock-data
 def historical_stock_data():
     symbol = request.args.get('symbol', type=str)
     outputsize = request.args.get('outputsize', default='full', type=str)  # Optional
-    datatype = request.args.get('datatype', default='json', type=str) # Optional
+    outputtype = request.args.get('outputtype', default='json', type=str) # Optional
     start_date = request.args.get('start', default=None) # Optional
     end_date = request.args.get('end', default=None) # Optional
     
@@ -60,6 +60,10 @@ def historical_stock_data():
         if end_date > datetime.today():
             return jsonify({"error": "End date must be less than the current date"}), 400
 
+    # Verify that the outputtype is either 'json' or 'csv'
+    if outputtype not in ['json', 'csv']:
+        return jsonify({"error": "Output type must be 'json' or 'csv'"}), 400
+
     # Construct the API URL
     url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&outputsize={outputsize}&datetype=json&apikey={API_KEY}"
     # The response will always be JSON and the conversion will happen later in this funciton
@@ -87,10 +91,10 @@ def historical_stock_data():
         # Remove the index column
         df = df.dropna().reset_index().drop(columns = 'index')
             
-        if datatype == 'json':
+        if outputtype == 'json':
             result = df.to_json()
             return result
-        elif datatype == 'csv':
+        elif outputtype == 'csv':
             # Convert DataFrame back to CSV
             return df.to_csv(), 200, {'Content-Type': 'text/csv'}
     else:

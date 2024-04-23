@@ -176,24 +176,32 @@ Now that the response has been recieved from the API, it's time to process the d
 ```python
 # First check if the request was successful
 response.status_code == 200:
-        if datatype == 'json':
-            data = response.json()
-            df = pd.DataFrame(data['Time Series (Daily)']).T
-            df.index = pd.to_datetime(df.index)
-            # Filter data based on date range
-            if start_date and end_date:
-                df = df[start_date:end_date]
-
-            # Convert DataFrame back to JSON
+    if response.status_code == 200:
+        data = response.json()
+        df = pd.DataFrame(data['Time Series (Daily)']).T
+        df.index = pd.to_datetime(df.index)
+        
+        # Rename the columns
+        df['date'] = df.index
+        df = df.rename(columns={'1. open': 'open', '2. high': 'high', '3. low': 'low', '4. close': 'close', '5. volume': 'volume'})
+        
+        
+        # Reorder the columns with the date first
+        df = df[['date', 'open', 'high', 'low', 'close', 'volume']]
+        
+        # Filter data based on date range
+        if start_date and end_date:
+            df = df.loc[(df['date'] >= start_date) & (df['date'] <= end_date)]
+        
+        # Remove the index column
+        df = df.dropna().reset_index().drop(columns = 'index')
+            
+        if outputtype == 'json':
             result = df.to_json()
             return result
-        elif datatype == 'csv':
-            # Read CSV into DataFrame
-            from io import StringIO
-            df = pd.read_csv(StringIO(response.text), index_col=0)
-            df.index = pd.to_datetime(df.index)
-            if start_date and end_date:
-                df = df[start_date:end_date]
+        elif outputtype == 'csv':
+            # Convert DataFrame back to CSV
+            return df.to_csv(), 200, {'Content-Type': 'text/csv'}
 ```
 
 ### Testing the endpoint
@@ -202,9 +210,11 @@ To test the endpoint, I am using Postman. Postman is a great tool for testing AP
 
 In the screenshot below, you can see that I request historical data for `AMD` stock for January 2024. The response is a JSON object with the stock data for that date range.
 
+![Postman screenshot testing endpoint 1](./pictures/postman_endpoint1.png)
 
 
 ### Implement Frontend
+
 
 
 ## Refactoring API with Swagger
