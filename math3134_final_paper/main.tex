@@ -1,0 +1,99 @@
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{property}[theorem]{Property}
+\pagestyle{plain}
+
+\usepackage{datetime}
+\newdate{date}{22}{04}{2024}
+
+\begin{document}
+\title{Extremal Graph Theory - Financial Risk Assessment}
+\author{Blake Marterella}
+\date{\displaydate{date}}
+
+\maketitle
+
+\section*{Abstract}
+    Summarizing your report in a short paragraph.
+    Hello World!
+
+\tableofcontents
+
+\section{Introduction}
+
+Briefly introduce the topic.
+
+\subsection{Background}
+
+\subsection{Why Is This Of Interest?}
+
+\subsection{Motivation}
+
+\section{Main Section}
+
+Relevant definitions, theorems, examples, etc. In between write down your analysis cohesively.
+
+\begin{definition} State anything not defined in class here.
+\end{definition}
+By \footnote{footnote} we find inequality
+You reference or cite by using labels. E.g. By Theorem \ref{p1} we find..., or from \cite{Y10} we know...\\
+\\
+Itemized list:
+\begin{itemize}
+\item Every nonzero real number has a reciprocal.
+\item There is a real number with no reciprocal.
+\end{itemize}
+Table:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|} 
+ \hline
+ $p$ & $q$ & $\neg p$ & $\neg p\lor q$ & $p\to q$ \\ 
+ \hline
+ T & T & F & T & T \\
+ T & F & F & F & F \\
+ F & T & T & T & T \\
+ F & F & T & T & T \\
+ \hline
+\end{tabular}
+\end{center}
+Equation array:
+\begin{eqnarray*}
+31&=&17+14\\
+17&=&14+3\\
+14&=&4(3)+2\\
+3=2+1
+\end{eqnarray*}
+Implication sign:
+$$x>2\Longrightarrow x^2>4$$
+Other typical symbols include $\to$, $\equiv$, $\neg$, $\land$, and $\lor$.\\
+
+Where appropriate you can put words in \textbf{boldface} or \textit{italics}, or \underline{underlined}. However, different colors like \textcolor{blue}{blue} should be avoided in a paper (unless it is really necessary).
+
+\section{Conclusion}
+
+Based on your research, write down what you discovered. In particular, discuss related areas of interest and any potential directions for future investigation.
+
+\bibliographystyle{alpha}
+\begin{thebibliography}{99}
+\bibitem[ANHF11]{ANHF}
+M. J. Ablowitz, S. D. Nixon, T. P. Horikis, and D. J. Frantzeskakis, \emph{Perturbations of dark solitons}, Proc. R. Soc. A Vol \textbf{467} (2011), 2597-2621.
+\bibitem[HN98]{HY}
+N. Hayashi and P. I. Naumkin, \emph{Asymptotics for Large Time of Solutions to the Nonlinear Schr\"odinger and Hartree Equations}, American Journal of Mathematics, Vol \textbf{120} No.2 (1998) 369-389.
+\bibitem[Y10]{Y10}
+J. Yang, \emph{Nonlinear Waves in Integrable and Nonintegrable Systems}, SIAM, Philadelphia (2010).
+\bibitem[Author initials and year]{Z}
+Authors, \emph{Title of Book or Paper}, Journal, Volume \textbf{Number}, Publisher (Year), page numbers.
+\end{thebibliography}
+
+\end{document}
