@@ -30,70 +30,116 @@
 
 \tableofcontents
 
+% [Introduction]
 \section{Introduction}
 
-Briefly introduce the topic.
+\subsection{Brief History}
 
-\subsection{Background}
-
-\subsection{Why Is This Of Interest?}
+Introdfuce the evolution of graph theory applications in financial markets. 
 
 \subsection{Motivation}
 
-\section{Main Section}
+Discuss why modern porfolio theory benefits from advanced mathematical tools such as combinatorics and graph theory.
 
-Relevant definitions, theorems, examples, etc. In between write down your analysis cohesively.
+\subsection{Interest}
 
-\begin{definition} State anything not defined in class here.
-\end{definition}
-By \footnote{footnote} we find inequality
-You reference or cite by using labels. E.g. By Theorem \ref{p1} we find..., or from \cite{Y10} we know...\\
-\\
-Itemized list:
+Explain why this interection of fiance and combinatorics is crucial for risk management and investment strategies.
+
+
+% [Main Section]
+% \section{Background on Graph Theory in Finance}
+% Briefly define graph theory terms that will be used (vertices, edges, etc.).
+
+
+% [Main Section]
+\section{Portfolio Optimization}
+
+Optimization and Diversification
+Extremal Graph Theory
+
 \begin{itemize}
-\item Every nonzero real number has a reciprocal.
-\item There is a real number with no reciprocal.
+    \item Theoretical Framework: Explain the extremal graph theorem.
+    \item Application: Demonstrate how this theorem can predict the maximum or minimum number of edges under certain conditions, which translates to understanding the limits of diversification in a portfolio.
+    \item Examples: Provide hypothetical examples of portfolios and how the theorem applies.
 \end{itemize}
-Table:
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|} 
- \hline
- $p$ & $q$ & $\neg p$ & $\neg p\lor q$ & $p\to q$ \\ 
- \hline
- T & T & F & T & T \\
- T & F & F & F & F \\
- F & T & T & T & T \\
- F & F & T & T & T \\
- \hline
-\end{tabular}
-\end{center}
-Equation array:
-\begin{eqnarray*}
-31&=&17+14\\
-17&=&14+3\\
-14&=&4(3)+2\\
-3=2+1
-\end{eqnarray*}
-Implication sign:
-$$x>2\Longrightarrow x^2>4$$
-Other typical symbols include $\to$, $\equiv$, $\neg$, $\land$, and $\lor$.\\
 
-Where appropriate you can put words in \textbf{boldface} or \textit{italics}, or \underline{underlined}. However, different colors like \textcolor{blue}{blue} should be avoided in a paper (unless it is really necessary).
+
+% [Main Section]
+\section{Risk Assessment}
+Coloring algorithms for risk assesment and management
+
+\begin{itemize}
+    \item Concept Introduction: Explain what graph coloring is and the significance of using different colors.
+    \item Implementation: How coloring can be used to represent different levels of risk or different asset classes.
+    \item Practical Example: A case study where coloring helps in decision-making about asset allocation or identifying over-concentrated sectors
+\end{itemize}
+
+
+% [Main Section]
+\section{Holding Vizualization}
+
+Correlation Graphs for Portfolio Holdings
+
+\begin{itemize}
+    \item Graph Construction: Discuss how to build a graph where vertices represent assets and edges represent correlations between returns.
+    \item Analysis Techniques: Use threshold levels to add/remove edges or use weights to show the strength of correlations.
+    \item Visualization: Include a section on how these graphs can visually represent portfolio diversification and the interconnections between assets.
+\end{itemize}
+
 
 \section{Conclusion}
 
-Based on your research, write down what you discovered. In particular, discuss related areas of interest and any potential directions for future investigation.
+\begin{itemize}
+    \item Summary: Recap how graph theory enhances portfolio management.
+    \item Future Directions: Suggest how further research could integrate other combinatorial techniques or advanced graph theory concepts.
+    \item Open Problems: Pose any unresolved questions or potential for new research that your paper hints at.
+\end{itemize}
+
 
 \bibliographystyle{alpha}
 \begin{thebibliography}{99}
-\bibitem[ANHF11]{ANHF}
-M. J. Ablowitz, S. D. Nixon, T. P. Horikis, and D. J. Frantzeskakis, \emph{Perturbations of dark solitons}, Proc. R. Soc. A Vol \textbf{467} (2011), 2597-2621.
-\bibitem[HN98]{HY}
-N. Hayashi and P. I. Naumkin, \emph{Asymptotics for Large Time of Solutions to the Nonlinear Schr\"odinger and Hartree Equations}, American Journal of Mathematics, Vol \textbf{120} No.2 (1998) 369-389.
-\bibitem[Y10]{Y10}
-J. Yang, \emph{Nonlinear Waves in Integrable and Nonintegrable Systems}, SIAM, Philadelphia (2010).
-\bibitem[Author initials and year]{Z}
-Authors, \emph{Title of Book or Paper}, Journal, Volume \textbf{Number}, Publisher (Year), page numbers.
+    \bibitem[ANHF11]{ANHF}
+    M. J. Ablowitz, S. D. Nixon, T. P. Horikis, and D. J. Frantzeskakis, \emph{Perturbations of dark solitons}, Proc. R. Soc. A Vol \textbf{467} (2011), 2597-2621.
+    \bibitem[Author initials and year]{Z}
+    Authors, \emph{Title of Book or Paper}, Journal, Volume \textbf{Number}, Publisher (Year), page numbers.
 \end{thebibliography}
 
 \end{document}
+
+% Unused starter code
+
+% \begin{definition} State anything not defined in class here.
+% \end{definition}
+% By \footnote{footnote} we find inequality
+% You reference or cite by using labels. E.g. By Theorem \ref{p1} we find..., or from \cite{Y10} we know...\\
+% \\
+% Itemized list:
+% \begin{itemize}
+% \item Every nonzero real number has a reciprocal.
+% \item There is a real number with no reciprocal.
+% \end{itemize}
+% Table:
+% \begin{center}
+% \begin{tabular}{|c|c|c|c|c|} 
+%  \hline
+%  $p$ & $q$ & $\neg p$ & $\neg p\lor q$ & $p\to q$ \\ 
+%  \hline
+%  T & T & F & T & T \\
+%  T & F & F & F & F \\
+%  F & T & T & T & T \\
+%  F & F & T & T & T \\
+%  \hline
+% \end{tabular}
+% \end{center}
+% Equation array:
+% \begin{eqnarray*}
+% 31&=&17+14\\
+% 17&=&14+3\\
+% 14&=&4(3)+2\\
+% 3=2+1
+% \end{eqnarray*}
+% Implication sign:
+% $$x>2\Longrightarrow x^2>4$$
+% Other typical symbols include $\to$, $\equiv$, $\neg$, $\land$, and $\lor$.\\
+
+% Where appropriate you can put words in \textbf{boldface} or \textit{italics}, or \underline{underlined}. However, different colors like \textcolor{blue}{blue} should be avoided in a paper (unless it is really necessary).
