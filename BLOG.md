@@ -1,4 +1,4 @@
-# Qunatitative Graph Theory Vizualizer
+# Quantitative Graph Theory Vizualizer
 
 ## Getting Started
 
