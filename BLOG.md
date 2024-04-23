@@ -121,3 +121,19 @@ def hello_world():
 if __name__ == '__main__':
     app.run(debug=True)
 ```
+
+## The First Feature
+
+The first feature that I am going to implement is the Stock Market Data Exportation Tool. This tool will allow users to input a stock symbol and a date range and receive a CSV file with the stock data for that date range. This will be useful for users who want to analyze the data in a spreadsheet or use it in another program. Additionally, I chose it as my first feature becasuse I will use it to perform calculations for my paper with the various data sets that my site generate.
+
+### Selecting a Historical Stock API
+
+There are many historical stock API's that I can choose from but a lot of them are either too expensive or have limitations on the number of requests that can be made. Some of the APIs, such as [Alpaca API](https://alpaca.markets/) which I have experience with in the past supports real-time data and trading which is a little more than is needed at this time. I elected to go with the [Alpha Advantage](https://www.alphavantage.co/) API because of it's realtime and historical stock market data, the ability to support analysis of different commodoties such as cryptocurrency, forex, etc. (this may be important for future development), and the fact that it is free to use. The processes for generating a token was as easy as entering in my university email.
+
+### Implementing the API
+
+After recieving the API key, I created a `.env` file in the root of my project and adding the key (see `example.env` for formatting). This ensures that my API key is not exposed to the public.
+
+The Alpha endpoint I am using is [`TIME_SERIES_INTRADAY`](https://www.alphavantage.co/documentation/) because it has 20+ years of historical data for any given stock ticker.
+
+I will be using the `requests` library so that my Flask API can make requests to the Alpha Advantage API. The first endpoint that I will be using will not require any processing on the data so it will be a simple GET request to the Alpha API and my Flask API returning the result. I chose the endpoint `historical_data/<ticker>`. You can view the code in `app.py` for a more extensive look on how the `GET` request is implemented in Flask.

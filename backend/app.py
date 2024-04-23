@@ -13,7 +13,13 @@ app = Flask(__name__)
 def hello_world():
     return API_KEY
 
-@app.route('/ticker/<ticker>')
+"""
+This route will return the historical stock data 
+for a given ticker symbol.
+
+route: /historical_data/<ticker>
+"""
+@app.route('/historical_data/<ticker>')
 def get_ticker(ticker):
     # Construct the URL with the passed ticker symbol and the API key
     url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={ticker}&interval=5min&apikey={API_KEY}'
