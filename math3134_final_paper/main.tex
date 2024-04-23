@@ -5,6 +5,7 @@
 \usepackage{tikz}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{bookmark}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -25,13 +26,18 @@
 \maketitle
 
 \section*{Abstract}
-    Summarizing your report in a short paragraph.
-    Hello World!
+The goal of this paper is to provide:
+Visualizations of trades over time that enforce the concepts about diversification and risk mitigation explored in the paper
+Give a better understanding on where individuals can begin to get into stock trading without the worry (maybe start with the SP 500 and choose stocks from there?)
 
 \tableofcontents
 
 % [Introduction]
 \section{Introduction}
+
+\subsection{Interest}
+
+Explain why this interection of fiance and combinatorics is crucial for risk management and investment strategies.
 
 \subsection{Brief History}
 
@@ -41,14 +47,45 @@ Introdfuce the evolution of graph theory applications in financial markets.
 
 Discuss why modern porfolio theory benefits from advanced mathematical tools such as combinatorics and graph theory.
 
-\subsection{Interest}
-
-Explain why this interection of fiance and combinatorics is crucial for risk management and investment strategies.
-
+% Let this flow into the definitions section
 
 % [Main Section]
-% \section{Background on Graph Theory in Finance}
-% Briefly define graph theory terms that will be used (vertices, edges, etc.).
+\section{Background}
+
+This is the first part of the main body of the paper. Here you will define the key concepts and terms that will be used throughout the paper.
+
+\subsection{Definitions}
+
+% Extremal Graph Theory
+
+\begin{theorem}[Extremal Graph Theorem]
+    Let $G$ be a graph with $n$ vertices and $m$ edges. Then, if $G$ does not contain a subgraph isomorphic to $K_{r+1}$, the complete graph on $r+1$ vertices, then $m \leq \frac{r}{2}(n-1)$.
+\end{theorem}
+
+% Spearman Rank Coefficent
+
+\begin{definition}[Spearman Rank Coefficent]
+\end{definition}
+
+\[
+\rho = 1 - \frac{6 \sum d_i^2}{n(n^2-1)}
+\]
+
+Go into detail about the spearman rank coefficent
+
+% Greedy Coloring Algorithm
+
+\begin{definition}[Welsch-Powwell Algorithm]
+\end{definition}
+
+Go into detail about the coloring alogirthm
+
+
+
+Briefly define graph theory terms that will be used (vertices, edges, etc.). 
+
+
+Convert the concept of a portfolio from a spreadsheet to a graph with vertices and edges. This concept is the central point of the paper.
 
 
 % [Main Section]
