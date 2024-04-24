@@ -7,9 +7,40 @@ import json
 
 BASE_URL = "http://127.0.0.1:5000/"
 
+def get_portfolio_data(tickers):
+    """
+    Fetch the historical data for a list of stock tickers that are in a portfolio.
+    - 4 years of historical data for a stock will be provided.
+    - If the data for any stock has been fetched previously, it will be loaded from the CSV file.
+    
+    Parameters:
+    tickers (list): A list of stock tickers.
+    
+    Returns:
+    dict: A dictionary containing the stock data for each ticker.
+    """
+    portfolio_data = {}
+    
+    for ticker in tickers:
+        # Get the stock data for each ticker from 2 years ago to today
+        ticker_df = get_stock_data(ticker)
+
+        if ticker_df.empty:
+            print(f"Failed to fetch data for {ticker}!")
+            break
+        else:
+            portfolio_data[ticker] = ticker_df
+        
+    return portfolio_data
+            
+
+
 def get_stock_data(ticker, start=None, end=None):
     """
     Fetches historical stock data for a given ticker symbol within a specified date range.
+    
+    By default this function will return a dataframe with
+    data from the last 4 years to the current data.
     
     Parameters:
     ticker (str): The ticker symbol of the stock.
@@ -21,7 +52,7 @@ def get_stock_data(ticker, start=None, end=None):
     """
     # Input Validation
     if start is None:
-        start = (datetime.now() - timedelta(days=365*2)).strftime('%Y-%m-%d')
+        start = (datetime.now() - timedelta(days=365*4)).strftime('%Y-%m-%d')
     if end is None:
         end = datetime.now().strftime('%Y-%m-%d')
     
@@ -50,15 +81,14 @@ def get_stock_data(ticker, start=None, end=None):
             json_data = json.loads(data['data'])
             
             df = pd.DataFrame(json_data) 
+
+            df['date'] = pd.to_datetime(df['date'])
             
             # Ensure the directory exists
             os.makedirs(os.path.dirname(path), exist_ok=True)
 
             # Save the DataFrame to a CSV file
             df.to_csv(path, index=False)
-
-            # Optional: Display the DataFrame or perform additional data processing
-            print(df.head())
 
             return df
 
@@ -69,5 +99,5 @@ def get_stock_data(ticker, start=None, end=None):
     # Data has been fetched previously, so load the CSV file
     else:
         df = pd.read_csv(path)
-        print("Data loaded from CSV file.")
+        # print("Data loaded from CSV file.")
         return df

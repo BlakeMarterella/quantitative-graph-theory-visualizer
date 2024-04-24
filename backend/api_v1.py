@@ -11,7 +11,7 @@ _env_file = find_dotenv()
 if _env_file:
     load_dotenv(_env_file)
     
-API_KEY = os.getenv('API_KEY')
+API_KEY = os.getenv('ALPHA_API_KEY')
 
 # Create a new app
 app = Flask(__name__)
