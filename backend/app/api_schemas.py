@@ -8,9 +8,9 @@ from app.constants import (
     EHttpMessages,
 )
 
-# from app.firestore.schemas import (
-#     BrotherDocumentApiModel,
-# )
+from app.schemas import (
+    HistoricalStockDataDocumentApiModel,
+)
 
 
 DEFAULT_MESSAGE_FIELD = fields.String(description="Message describing the outcome of the request.")
@@ -40,10 +40,10 @@ InternalServerErrorResponseSchema = Model('InternalServerErrorResponse', {
 """
 API Schemas for the 'Brothers' collection.
 """
-# BrotherResponseSchema = Model('BrotherResponse', {
-#     'message': DEFAULT_MESSAGE_FIELD,
-#     'data': fields.Nested(BrotherDocumentApiModel)
-# })
+HistoricalStockDataResponseSchema = Model('BrotherResponse', {
+    'message': DEFAULT_MESSAGE_FIELD,
+    'data': fields.Nested(HistoricalStockDataDocumentApiModel, description="Historical stock data for the requested stock.")
+})
 
 """
 Export a list of the schemas we want to register with our API. This is used at 
@@ -55,8 +55,6 @@ SCHEMAS_TO_REGISTER = [
     BadRequestResponseSchema,
     UnauthorizedResponseSchema,
     InternalServerErrorResponseSchema,
-    # 'Brothers' collection:
-    # BrotherDocumentApiModel,
-    # BrotherResponseSchema,
-    # BrotherResponseSchema,
+    HistoricalStockDataDocumentApiModel,
+    HistoricalStockDataResponseSchema,
 ]
