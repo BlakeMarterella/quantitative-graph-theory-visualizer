@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-This tools was created with the intent to help individuals vizualize fluctations in the stock market, the performance of stock holdings overtime, and understand the underlying graph theory driving these changes. With this set of tools, users will be able to view the correlation between stocks and sectors to increase awareness of diversification and experiment with different portfolio allocations. There are additional tools to support future projects in the field of quantitative graph theory by exporting data generated on the site to CSV files and others.
+This tool was created with the intent to help individuals vizualize fluctations in the stock market, the performance of stock holdings overtime, and understand the underlying graph theory driving these changes. With this set of tools, users will be able to view the correlation between stocks and sectors to increase awareness of diversification and experiment with different portfolio allocations. There are additional tools to support future projects in the field of quantitative graph theory by exporting data generated on the site to CSV files and others.
 
 The proof of concept for this project is an easy to use and accessible API that allows clients to generate datasets for analysis. In the future, I would like to implement a frontend interface that allows users to interact with the data in a more meaningful way. This will include the ability to create custom graphs, compare different datasets, and export the data to a CSV file.
 
@@ -231,7 +231,9 @@ In the screenshot below, you can see that I request historical data for `AMD` st
 
 ![Postman screenshot testing endpoint 1](./pictures/postman_endpoint1.png)
 
-## Refactoring API with Swagger
+## Future Development
+
+### Implementing Swagger
 
 Everything up to this point has been simple, straightforward, and perfect for building a quick API for a personal project. However, as the project grows, it will be important to have proper documentation for the API. This is where Swagger comes in. Swagger is a tool that allows you to create interactive documentation for your API. It is a great way to keep track of all the endpoints, parameters, and responses that your API supports. It also allows you to test your API directly from the documentation page (something that I could've used when I was building the first feature).
 

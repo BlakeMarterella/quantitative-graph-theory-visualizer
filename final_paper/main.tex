@@ -54,12 +54,6 @@ Discuss why modern porfolio theory benefits from advanced mathematical tools suc
 
 This is the first part of the main body of the paper. Here you will define the key concepts and terms that will be used throughout the paper.
 
-\subsection{Stock Holdings to a Graph}
-
-The data sets were taken from the Alpha Adventure API. Once we had the raw historical data for each stock in our portfolio, cleaning and processing the data was the next step. The final data set has the following columns: 
-
-
-
 \subsection{Definitions}
 
 % Extremal Graph Theory
@@ -92,6 +86,20 @@ Briefly define graph theory terms that will be used (vertices, edges, etc.).
 
 
 Convert the concept of a portfolio from a spreadsheet to a graph with vertices and edges. This concept is the central point of the paper.
+
+
+\subsection{Data Collection and Processing}
+
+For the purpose of this project, I took the time to develop a custom API that allows me to quickly export historical data for a given stock\footnote{Full documentation and a link to the source code of the custom API can be found on my website, linked in the references section.}. The API contains an endpoint that allows users to generate a CSV file for any given stock ticker and date range, providing 20 years of historical data. The benefit of developing a custom API is that it allows the developer full control over data-cleaning and preparation on the server side to enforce uniformity and ease-of-use. The fields we are going to use are as follows:
+
+\begin{itemize}
+    \item \bf{Date} - The date of the stock price. 
+    \item \bf{Open} - The opening price of the stock on that date.
+    \item \bf{High} - The highest price the stock reached on that date.
+    \item \bf{Low} - The lowest price the stock reached on that date.
+    \item \bf{Close} - The closing price of the stock on that date.
+    \item \bf{Volume} - The number of shares traded on that date.
+\end{itemize}
 
 
 % [Main Section]
