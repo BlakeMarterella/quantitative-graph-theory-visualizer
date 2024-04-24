@@ -3,9 +3,67 @@ import csv
 from datetime import datetime, timedelta
 import pandas as pd
 import os
+import networkx as nx
+import matplotlib.pyplot as plt
 import json
 
 BASE_URL = "http://127.0.0.1:5000/"
+
+def generate_correlation_matrix(portfolio_data):
+    """
+    
+    """
+    '''         Step 1: Data Preparation      '''
+    returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
+    returns_df = pd.DataFrame(returns)
+
+    # Compute correlation matrix
+    correlation_matrix = returns_df.corr()
+
+    '''         Step 2: Graph Construction      '''
+    
+    threshold = 0.5  # Define your own threshold
+    G = nx.Graph()
+    for stock1 in correlation_matrix.columns:
+        for stock2 in correlation_matrix.index:
+            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > threshold:
+                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
+
+
+    '''         STEP 3: Applying Extremal Graph Theory          '''
+    # Analyze Graph Properties: Investigate properties like maximum degree, diameter, or other relevant metrics that can be derived from extremal graph theory.
+    print(correlation_matrix)
+    degree_sequence = dict(G.degree()).values()
+
+    if degree_sequence:
+        max_degree = max(degree_sequence)
+    else:
+        print('No edges found in the graph')
+        
+    # max_degree = max(dict(G.degree()).values())
+    diameter = nx.diameter(G)
+    # Add more analyses as needed
+
+
+    '''         Step 4: Visualization       '''
+    import matplotlib.pyplot as plt
+    # Use your graph G from previous steps
+    pos = nx.spring_layout(G)  # Positions for all nodes
+
+    # Draw the graph (nodes and edges)
+    nx.draw(G, pos, with_labels=True, node_color='skyblue', node_size=700, 
+            edge_color='gray', linewidths=0.5,
+            font_size=10)
+
+    # Prepare edge labels, truncated to 4 decimal places
+    edge_labels = {(u, v): f"{d['weight']:.4f}" for u, v, d in G.edges(data=True)}
+
+    # Draw edge labels
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
+
+    plt.axis('off')  # Turn off the axis
+    plt.show()  # Display the graph
+    
 
 def get_portfolio_data(tickers):
     """

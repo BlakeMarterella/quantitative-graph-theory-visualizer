@@ -1,4 +1,4 @@
-from utils.helper import get_stock_data, get_portfolio_data
+from utils.helper import *
 
 def main():
     portfolio_tickers = []
@@ -9,9 +9,10 @@ def main():
 
     # Fetch the historical data for each stock in the portfolio
     portfolio_data = get_portfolio_data(portfolio_tickers)
-            
-
-    # print("All data fetched!")
+    
+    # Generate Correlation Matrix
+    generate_correlation_matrix(portfolio_data)
+    
 
 if __name__ == "__main__":
     main()
