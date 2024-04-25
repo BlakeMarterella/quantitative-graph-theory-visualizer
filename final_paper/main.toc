@@ -7,6 +7,6 @@
 \contentsline {subsection}{\numberline {2.2}Data Collection and Processing}{3}{subsection.2.2}%
 \contentsline {section}{\numberline {3}Portfolio Optimization}{3}{section.3}%
 \contentsline {section}{\numberline {4}Risk Assessment}{3}{section.4}%
-\contentsline {section}{\numberline {5}Holding Vizualization}{3}{section.5}%
+\contentsline {section}{\numberline {5}Holding Vizualization}{4}{section.5}%
 \contentsline {section}{\numberline {6}Conclusion}{4}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Future Development}{4}{subsection.6.1}%

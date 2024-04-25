@@ -51,25 +51,18 @@ The integration of combinatorics and finance, especially by the use of graph the
 
 This study aims to democratize the complex mathematical strategies that find their place in financial markets so that more accessible knowledge and strategies are found for a more open audience. Though such advanced models have long been in use by large investment firms or hedge funds, it certainly would be of great value to put this kind of information in the hands of small investors. Through the examination of foundational concepts of graph theory and finance, this paper seeks to prepare the reader with the tools of understanding and engaging actively with their investment strategies.
 
-The field of quantitative graph theory is rapidly expanding and encapsulating fields such as machine learning, graph algorithms, and quantitative analysis. This study serves as foundational and prerequisite knowledge to apply more complex analysis on financial data. By exploring the basics and providing  access to historical stock data, individuals can become powerful and successful independent traders.
+The field of quantitative graph theory is rapidly expanding and encapsulating fields such as machine learning, graph algorithms, and quantitative analysis [MSFEYS2017]. This study serves as foundational and prerequisite knowledge to apply more complex analysis on financial data. By exploring the basics and providing  access to historical stock data, individuals can become powerful and successful independent traders.
 
 % Let this flow into the definitions section
 
 % [Main Section]
 \section{Background}
 
-Before exploring underlying patterns in historical stock data and applying quantitative graph theory. It is important to have an understanding of how a graph can be constructed to represent a stock portfolio. At our most simple defintion, each stock within our portfolio will be represented as a vertex and the relationship between each stock will be represented as an edge. This relationship can be many different factors such as edges: connecting companies in the same sector, edges connecting companies with similar market capitalization, etc. For the purpose of this study, each each will be the correlation factor between stocks. The specifics on how to calculate this correlation factor will be introduced in the definitions below and applied later in the study.
+Before exploring underlying patterns in historical stock data and applying quantitative graph theory. It is important to have an understanding of how a graph can be constructed to represent a stock portfolio. At our most simple defintion, each stock within our portfolio will be represented as a vertex and the relationship between each stock will be represented as an edge. This relationship can be many different factors such as edges: connecting companies in the same sector, edges connecting companies with similar market capitalization, etc. For the purpose of this study, each edge will be the correlation factor between stocks. The specifics on how to calculate this correlation factor will be explored in the definitions below and applied later in the study.
 
 \subsection{Definitions}
 
-% Extremal Graph Theory
-
-\begin{theorem}[Extremal Graph Theorem]
-    Let $G$ be a graph with $n$ vertices and $m$ edges. Then, if $G$ does not contain a subgraph isomorphic to $K_{r+1}$, the complete graph on $r+1$ vertices, then $m \leq \frac{r}{2}(n-1)$.
-\end{theorem}
-
 % Spearman Rank Coefficent
-
 \begin{definition}[Spearman Rank Coefficent]
 \end{definition}
 
@@ -77,7 +70,15 @@ Before exploring underlying patterns in historical stock data and applying quant
 \rho = 1 - \frac{6 \sum d_i^2}{n(n^2-1)}
 \]
 
-Go into detail about the spearman rank coefficent
+The Spearman Rank Coefficient, denoted as $\rho$ (rho), is a measure of the association between two variables. In the context of this study, the Spearman Rank Coefficient is used to measure the correlation between the closing price of 2 different stocks over a 4 year period. The formula above is used to calculate the correlation between each stock in our portfolio where $d_i$ is the difference between the closing price between 2 stocks and and $n$ is the number of days of historical data. The Spearman Rank Coefficient was used instead of the Pearson Correlation Coefficient because it can compute the correlation without the interference of outliers and the data does not need to be linear [JAJCDBRGZC2017]. The coefficent will created between stocks will be the edge between the two vertices in the graph and help users visualize how their portfolio is correlated. 
+
+% Extremal Graph Theory
+
+\begin{theorem}[Extremal Graph Theorem]
+    Let $G$ be a graph with $n$ vertices and $m$ edges. Then, if $G$ does not contain a subgraph isomorphic to $K_{r+1}$, the complete graph on $r+1$ vertices, then $m \leq \frac{r}{2}(n-1)$.
+\end{theorem}
+
+
 
 % Greedy Coloring Algorithm
 
@@ -165,6 +166,12 @@ Correlation Graphs for Portfolio Holdings
     % https://analyzingalpha.com/algorithmic-trading-history
     \bibitem[LS2023]{Z}
     L. Smigel, \emph{Algorithmic Trading History: A Breif Summary}, Analyzing Alpha (2023).
+    % https://dl.acm.org/doi/abs/10.1016/j.ins.2017.08.009
+    \bibitem[MSFEYS2017]{Z}
+    M. Dehmer, S. Emmert-Streib, Y. Shi, \emph{Quantitative Graph Theory}, Information Sciences, Vol. 418 \textbf{Issue C}, Association for Computing Machinery Digital Library (2017).
+    % https://evoq-eval.siam.org/Portals/0/Publications/SIURO/Volume%2010/Analysis_Equity_Markets_A_Graph_Theory_Approach.pdf
+    \bibitem[JAJCDBRGZC2017]{Z}
+    J. R. Abrams, J. C., D. B., R. G., Z. C., \emph{Analysis of Equity Markets: A Graph Theory Approach}, The University of Arizona, Department of Mathematics (2017).
     % https://factmyth.com/factoids/probability-theory-was-invented-to-solve-a-gambling-problem/
 \end{thebibliography}
 
