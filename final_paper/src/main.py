@@ -10,8 +10,16 @@ def main():
     # Fetch the historical data for each stock in the portfolio
     portfolio_data = get_portfolio_data(portfolio_tickers)
     
+    # Visualize greedy coloring algorithm
+    # visualize_greedy_coloring(portfolio_data)
+    
+    # Visualize Welsh-Powell algorithm
+    # visualize_greedy_coloring(portfolio_data)
+    
     # Generate Correlation Matrix
-    generate_correlation_matrix(portfolio_data)
+    p_correlation_mat = generate_correlation_matrix(portfolio_data)
+    
+    print(p_correlation_mat)
     
 
 if __name__ == "__main__":

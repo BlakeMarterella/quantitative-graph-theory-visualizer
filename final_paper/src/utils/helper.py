@@ -4,10 +4,111 @@ from datetime import datetime, timedelta
 import pandas as pd
 import os
 import networkx as nx
+import numpy as np
 import matplotlib.pyplot as plt
 import json
 
 BASE_URL = "http://127.0.0.1:5000/"
+
+def visualize_greedy_coloring(portfolio_data, threshold=0.5):
+    # Calculate returns and create a correlation matrix
+    returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
+    returns_df = pd.DataFrame(returns)
+    correlation_matrix = returns_df.corr()
+
+    # Construct the graph based on the correlation threshold
+    G = nx.Graph()
+    for stock1 in correlation_matrix.columns:
+        for stock2 in correlation_matrix.index:
+            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > threshold:
+                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
+
+    # Applying the greedy coloring algorithm
+    coloring = nx.greedy_color(G, strategy='largest_first')
+    colors = list(coloring.values())
+
+    # Prepare the graph layout
+    pos = nx.spring_layout(G)
+
+    # Draw the graph with node labels and colored nodes according to the greedy coloring
+    color_map = plt.get_cmap('viridis', max(colors)+1)  # Get a colormap with enough colors
+    nx.draw(G, pos, labels={node: node for node in G.nodes()}, with_labels=True, 
+            node_color=colors, node_size=500, cmap=color_map,
+            edge_color='gray', linewidths=0.5, font_size=10)
+
+    # Draw edge labels showing correlation weights
+    edge_labels = {(u, v): f"{d['weight']:.2f}" for u, v, d in G.edges(data=True)}
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
+
+    plt.title("Greedy Coloring of Financial Portfolio Correlation Graph")
+    plt.axis('off')
+    plt.savefig('greedy_coloring.png')
+    plt.show()
+
+    return coloring
+
+def visualize_welsh_powell_coloring(portfolio_data, threshold=0.5):
+    # Calculate returns and create a correlation matrix
+    returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
+    returns_df = pd.DataFrame(returns)
+    correlation_matrix = returns_df.corr()
+
+    # Construct the graph based on the correlation threshold
+    G = nx.Graph()
+    for stock1 in correlation_matrix.columns:
+        for stock2 in correlation_matrix.index:
+            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > threshold:
+                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
+
+    # Sort nodes by descending degree
+    sorted_nodes = sorted(G.nodes(), key=lambda x: G.degree(x), reverse=True)
+
+    # Apply Welsh-Powell coloring algorithm
+    color_map = {}
+    available_colors = set(range(len(G.nodes())))  # Maximum colors needed
+    for node in sorted_nodes:
+        adjacent_colors = {color_map.get(neighbor) for neighbor in G.neighbors(node)}
+        color_map[node] = min(available_colors - adjacent_colors)
+
+    colors = [color_map[node] for node in G.nodes()]
+
+    # Prepare the graph layout
+    pos = nx.spring_layout(G)
+
+    # Create a color map adjusted to the number of colors used
+    color_list = np.linspace(0, 1, len(set(color_map.values())))
+    cmap = plt.cm.viridis(color_list)
+
+    # Draw the graph
+    nx.draw(G, pos, node_color=colors, cmap=plt.cm.viridis, with_labels=True,
+            node_size=700, edge_color='gray', linewidths=0.5, font_size=10)
+
+    # Draw edge labels showing correlation weights
+    edge_labels = {(u, v): f"{d['weight']:.2f}" for u, v, d in G.edges(data=True)}
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
+
+    # Create a legend for the colors
+    # Create a legend for the colors
+    color_legend = {}
+    for node, color in color_map.items():
+        if color in color_legend:
+            color_legend[color].append(node)
+        else:
+            color_legend[color] = [node]
+
+    # Format the legend text to display alongside the graph
+    legend_text = "\n".join([f"Color {c+1}: {', '.join(nodes)}" for c, nodes in sorted(color_legend.items())])
+
+    # Display the legend text
+    plt.figtext(1.05, 0.5, legend_text, ha='left')
+
+    plt.title("Welsh-Powell Coloring of Financial Portfolio Correlation Graph")
+    plt.axis('off')
+    plt.savefig('welsh_powell_coloring.png')
+    plt.show()
+
+    return color_map, color_legend
+
 
 def generate_correlation_matrix(portfolio_data):
     """
@@ -32,7 +133,6 @@ def generate_correlation_matrix(portfolio_data):
 
     '''         STEP 3: Applying Extremal Graph Theory          '''
     # Analyze Graph Properties: Investigate properties like maximum degree, diameter, or other relevant metrics that can be derived from extremal graph theory.
-    print(correlation_matrix)
     degree_sequence = dict(G.degree()).values()
 
     if degree_sequence:
@@ -46,7 +146,6 @@ def generate_correlation_matrix(portfolio_data):
 
 
     '''         Step 4: Visualization       '''
-    import matplotlib.pyplot as plt
     # Use your graph G from previous steps
     pos = nx.spring_layout(G)  # Positions for all nodes
 
@@ -63,6 +162,8 @@ def generate_correlation_matrix(portfolio_data):
 
     plt.axis('off')  # Turn off the axis
     plt.show()  # Display the graph
+    
+    return correlation_matrix
     
 
 def get_portfolio_data(tickers):
