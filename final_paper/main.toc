@@ -11,12 +11,12 @@
 \contentsline {paragraph}{Interpretation for Financial Portfolios}{4}{section*.4}%
 \contentsline {subsubsection}{\numberline {3.1.2}Integration with Spearman's Rank Coefficient}{4}{subsubsection.3.1.2}%
 \contentsline {paragraph}{Practical Implementation}{4}{section*.5}%
-\contentsline {section}{\numberline {4}Risk Management}{4}{section.4}%
+\contentsline {section}{\numberline {4}Risk Management}{5}{section.4}%
 \contentsline {section}{\numberline {5}Holding Vizualization}{5}{section.5}%
 \contentsline {section}{\numberline {6}Conclusion}{5}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Future Development}{5}{subsection.6.1}%
-\contentsline {section}{Appendices}{6}{section*.7}%
-\contentsline {section}{\numberline {A}Code}{6}{appendix.1.A}%
-\contentsline {subsection}{\numberline {A.1}Import Historical Stock Data}{6}{subsection.1.A.1}%
-\contentsline {subsection}{\numberline {A.2}Import Historical Stock Data for Portfolio}{6}{subsection.1.A.2}%
-\contentsline {subsection}{\numberline {A.3}Pearson Correlation Coefficient and Correlation Matrix Graph}{7}{subsection.1.A.3}%
+\contentsline {section}{Appendices}{7}{section*.7}%
+\contentsline {section}{\numberline {A}Code}{7}{appendix.1.A}%
+\contentsline {subsection}{\numberline {A.1}Import Historical Stock Data}{7}{subsection.1.A.1}%
+\contentsline {subsection}{\numberline {A.2}Import Historical Stock Data for Portfolio}{7}{subsection.1.A.2}%
+\contentsline {subsection}{\numberline {A.3}Pearson Correlation Coefficient and Correlation Matrix Graph}{8}{subsection.1.A.3}%

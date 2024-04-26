@@ -27,3 +27,4 @@ V
 WMT
 DIS
 DOW
+AMD

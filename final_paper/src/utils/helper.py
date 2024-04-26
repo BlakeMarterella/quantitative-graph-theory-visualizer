@@ -109,76 +109,75 @@ def visualize_welsh_powell_coloring(portfolio_data, threshold=0.5):
     plt.show()
 
     return color_map, color_legend
-
-
-def generate_correlation_matrix(portfolio_data):
-    """
     
+def apply_extremal_graph_theory(portfolio_data, corr_threshold=0.5, max_clique_size=3, image_name=None):
     """
-    '''         Step 1: Data Preparation      '''
-    returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
-    returns_df = pd.DataFrame(returns)
-
-    # Compute correlation matrix
-    correlation_matrix = returns_df.corr(method='pearson')
-
-    '''         Step 2: Graph Construction      '''
+    Generate a graph from a portfolio's correlation matrix and avoid cliques of a certain size
+    using extremal graph theory to avoid subgraphs isomorphic to the complete graph on a certain number of vertices.
     
-    threshold = 0.0  # Define your own threshold
+    Parameters:
+    portfolio_data (dict): A dictionary containing the stock data for each ticker.
+    corr_threshold (float): The correlation threshold above which an edge is added between two stocks.
+    max_clique_size (int): The size of the maximum clique to avoid in the graph.
+    image_name(str): The name of the image file to save the graph.
+        If not provided, the graph will be displayed but not saved.
+
+    Returns:
+    None: Displays a graph.
+    """
+    # Calculate the Pearson correlation matrix
+    correlation_matrix = get_pearson_correlation_matrix(portfolio_data)
+
+    # Initialize a graph
+    G = nx.Graph()
+
+    # Add edges based on the correlation threshold and avoiding cliques
+    for stock1 in correlation_matrix.columns:
+        for stock2 in correlation_matrix.index:
+            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > corr_threshold:
+                # Tentatively add edge
+                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
+                # Check for cliques and remove the edge if it forms a forbidden clique
+                if any(len(clique) >= max_clique_size for clique in nx.find_cliques(G)):
+                    G.remove_edge(stock1, stock2)
+
+    draw_graph(G, image_name)
+
+
+def generate_correlation_graph(portfolio_data, corr_threshold=-1, image_name=None):
+    """
+    Generate a correlation graph for a given portfolio of stocks.
+    Each node in the graph represents a stock, and the edges represent the correlation between the stocks.
+    Edge weights represent the strength of the correlation and will be colored accordingly.
+    
+    The threshold parameter allows for the filtering of weak correlations. By default,
+    this value will be set to -1 (the lowest possible correlation value).
+    
+    Parameters:
+    portfolio_data (dict): A dictionary containing the stock data for each ticker.
+    corr_threshold (float): The minimum correlation value to include an edge in the graph.
+    image_name(str): The name of the image file to save the graph.
+        If not provided, the graph will be displayed but not saved.
+    """
+    correlation_matrix = get_pearson_correlation_matrix(portfolio_data)
+
     G = nx.Graph()
     for stock1 in correlation_matrix.columns:
         for stock2 in correlation_matrix.index:
-            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > threshold:
+            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > corr_threshold:
                 G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
 
+    draw_graph(G, image_name)
 
-    '''         STEP 3: Applying Extremal Graph Theory          '''
-    # Analyze Graph Properties: Investigate properties like maximum degree, diameter, or other relevant metrics that can be derived from extremal graph theory.
-    degree_sequence = dict(G.degree()).values()
-
-    if degree_sequence:
-        max_degree = max(degree_sequence)
-    else:
-        print('No edges found in the graph')
-        
-    # max_degree = max(dict(G.degree()).values())
-    diameter = nx.diameter(G)
-    # Add more analyses as needed
-
-
-    '''         Step 4: Visualization       '''
-    # Use your graph G from previous steps
-    pos = nx.spring_layout(G)  # Positions for all nodes
-
-    # Draw the graph (nodes and edges)
-    nx.draw(G, pos, with_labels=True, node_color='skyblue', node_size=700, 
-            edge_color='gray', linewidths=0.5,
-            font_size=10)
-
-    # Prepare edge labels, truncated to 4 decimal places
-    edge_labels = {(u, v): f"{d['weight']:.4f}" for u, v, d in G.edges(data=True)}
-
-    # Draw edge labels
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
-
-    plt.axis('off')  # Turn off the axis
-    plt.show()  # Display the graph
+def draw_graph(G, image_name):
+    """
+    Draw a NetworkX graph with custom settings and save it as an image.
     
-    return correlation_matrix
-    
-def generate_correlation_matrix2(portfolio_data):
-    returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
-    returns_df = pd.DataFrame(returns)
-
-    correlation_matrix = returns_df.corr(method='pearson')
-
-    threshold = -1
-    G = nx.Graph()
-    for stock1 in correlation_matrix.columns:
-        for stock2 in correlation_matrix.index:
-            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > threshold:
-                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
-
+    Parameters:
+    G (nx.Graph): A NetworkX graph object.
+    image_name (str): The name of the image file to save the graph.
+        If not provided, the graph will be displayed but not saved.
+    """
     pos = nx.spring_layout(G, k=0.2, scale=1)  # positions for all nodes
 
     # Generate edge colors based on weight
@@ -197,6 +196,8 @@ def generate_correlation_matrix2(portfolio_data):
     # Drawing labels
     nx.draw_networkx_labels(G, pos, font_size=10, font_family='sans-serif', ax=ax)
 
+    print_graph_properties(G)
+
     # Color bar settings
     sm = plt.cm.ScalarMappable(cmap=plt.cm.viridis, norm=plt.Normalize(vmin=min(weights), vmax=max(weights)))
     sm.set_array([])
@@ -205,10 +206,45 @@ def generate_correlation_matrix2(portfolio_data):
     cbar.set_label('Correlation Strength')
 
     plt.axis('off')  # Turn off the axis
-    plt.savefig('correlation_matrix_graph.png')
-    plt.show()  # Display the graph
+    
+    if (image_name):
+        plt.savefig(image_name)
+        
+    plt.show()
+    
 
+def get_pearson_correlation_matrix(portfolio_data):
+    """
+    Generate a correlation matrix for a given portfolio of stocks.
+    This function uses the Pearson correlation coefficient to measure the linear correlation between stocks.
+    
+    Parameters:
+    portfolio_data (dict): A dictionary containing the stock data for each ticker.
+    
+    Returns:
+    DataFrame: A pandas DataFrame containing the correlation matrix.
+    """
+    
+    returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
+    returns_df = pd.DataFrame(returns)
 
+    return returns_df.corr(method='pearson')
+    
+
+def print_graph_properties(G):
+    """
+    Print various properties of a graph.
+    
+    Parameters:
+    G (nx.Graph): A NetworkX graph object.
+    """
+    print("Number of nodes:", G.number_of_nodes())
+    print("Number of edges:", G.number_of_edges())
+    print("Maximum degree:", max(dict(G.degree()).values()))
+    # Average number of neighbors
+    print("Average degree:", np.mean(list(dict(G.degree()).values())))
+    # Average Correlation Strength
+    print("Average Correlation Strength:", np.mean([d['weight'] for u, v, d in G.edges(data=True)]))
 
 def get_portfolio_data(tickers):
     """

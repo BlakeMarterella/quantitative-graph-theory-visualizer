@@ -9,6 +9,7 @@
 \usepackage{bookmark}
 \usepackage{listings}
 \usepackage{paralist}
+\usepackage{amsmath}
 \usepackage{indentfirst}
 \usepackage{graphicx}
 \usepackage[toc,page]{appendix}
@@ -88,11 +89,11 @@ Before continuing, it is important to understand how a graph can be constructed 
 
 % Pearson Correlation Coefficent
 \begin{definition}[Pearson Correlation Coefficent]
-\end{definition}
-
 \[
 r = \frac{\sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{Y})}{\sqrt{\sum_{i=1}^n (X_i - \overline{X})^2} \sqrt{\sum_{i=1}^n (Y_i - \overline{Y})^2}}
 \]
+\end{definition}
+
 
 The Pearson Corelation Coefficient, denoted as $r$, is a measure of the linear relationship between two variables. In the context of this study, $r$ is the correlation between 2 stocks' closing price over a 4 year period. $X_i$ and $Y_i$ is the closing price of stock x and stock y on day $i$. $\overline{X}$ and $\overline{Y}$ is the average closing price of stock x and stock y over the 4 year period. In the formula above, the numerator calculates the covariance between 2 stocks and the deonominator uses product of stock x and stock y's standard deviation. The result is a number between -1 and 1, where -1 is a perfect negative linear relationship (as X increases, Y decreases), 1 is a perfect positive linear relationship (as X increases, Y increases), and 0 represents no linear relationship (there is no way X can predict Y)[ST2024]. 
 
@@ -127,14 +128,7 @@ Figure 1 depicts a graph constructed with the correlation matrix that allows us 
     \includegraphics[width=0.5\textwidth]{correlation_matrix_graph.png}
 \end{figure}    
 
-% \subsection{Definitions}
-
-
-% % Extremal Graph Theory
-
-% \begin{theorem}[Extremal Graph Theorem]
-%     Let $G$ be a graph with $n$ vertices and $m$ edges. Then, if $G$ does not contain a subgraph isomorphic to $K_{r+1}$, the complete graph on $r+1$ vertices, then $m \leq \frac{r}{2}(n-1)$.
-% \end{theorem}
+The figure has 30 vertices and 435 total edges. The average number of degrees for each vertex is 29, meaning that the average stock is correlated with 29 other stocks in the portfolio. The maximum number of edges possible for an undirected graph without loops and 30 verties is $\binom {30}{2} = \frac{30 (30 - 1)}{2} = 435$ edges. Therefore the graph is dense because the number of edges is equal to the maximum number of edges possible. This is a sign that the portfolio is not well diversified and that there are many stocks that are highly correlated with each other. Additionally, the average correlation strength is 0.303. A diversified portfolio should have a low average correlation strength and a low number of edges. In the next section, we will explore how graph theory can be used to optimize and diversify a portfolio.
 
 
 % % Greedy Coloring Algorithm
@@ -155,6 +149,14 @@ Figure 1 depicts a graph constructed with the correlation matrix that allows us 
 
 % [Main Section]
 \section{Portfolio Optimization}
+
+% Extremal Graph Theory
+\begin{definition}[Extremal Graph Theorem] Let $G$ be a graph with $n$ vertices and $m$ edges. Then, if $G$ does not contain a subgraph isomorphic to $K_{r+1}$, the complete graph on $r+1$ vertices, then $m \leq \frac{r}{2}(n-1)$.
+\end{definition}
+
+Extremal Graph Thoerem is a powerful tool in portfolio optimiziation. The theorem can be particularly useful in preventing over-concentration of correlated assets, thus enhancing the robustness of the portfolio against market volatility. The theorem states that if a graph does not contain a subgraph isomorphic to $K_{r+1}$, then the number of edges in the graph is bounded by $\frac{r}{2}(n-1)$. In the context of a stock portfolio, avoiding a subgraph $K_{r+1}$ means ensuring that no group of $r+1$ stocks are all heavily correlated with each other. This helps in spreading out the investment risk by limiting the number of direct correlations any single stock has within the portfolio, thus achieving a higher degree of diversification. 
+
+For example, a conservative portfolio may want to exclude any subset of 3 stocks from being mutually interconnected. In this case, $r = 3$ and $n = 30$ (since the portfolio contains 30 stocks). By applying the theorem, we can calculate the maximum number of edges allowed in the graph to maintain a diversified portfolio:
 
 \subsection{Optimization and Diversification Using Extremal Graph Theory}
 
