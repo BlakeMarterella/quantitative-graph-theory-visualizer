@@ -134,7 +134,7 @@ def apply_extremal_graph_theory(portfolio_data, corr_threshold=0.5, max_clique_s
     # Add edges based on the correlation threshold and avoiding cliques
     for stock1 in correlation_matrix.columns:
         for stock2 in correlation_matrix.index:
-            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > corr_threshold:
+            if stock1 != stock2 and abs(correlation_matrix.loc[stock1, stock2]) < corr_threshold:
                 # Tentatively add edge
                 G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
                 # Check for cliques and remove the edge if it forms a forbidden clique
@@ -169,7 +169,7 @@ def generate_correlation_graph(portfolio_data, corr_threshold=-1, image_name=Non
 
     draw_graph(G, image_name)
 
-def draw_graph(G, image_name):
+def draw_graph(G, image_name=None):
     """
     Draw a NetworkX graph with custom settings and save it as an image.
     
@@ -212,7 +212,6 @@ def draw_graph(G, image_name):
         
     plt.show()
     
-
 def get_pearson_correlation_matrix(portfolio_data):
     """
     Generate a correlation matrix for a given portfolio of stocks.
@@ -230,7 +229,6 @@ def get_pearson_correlation_matrix(portfolio_data):
 
     return returns_df.corr(method='pearson')
     
-
 def print_graph_properties(G):
     """
     Print various properties of a graph.
@@ -274,8 +272,6 @@ def get_portfolio_data(tickers):
             portfolio_data[ticker] = ticker_df
         
     return portfolio_data
-            
-
 
 def get_stock_data(ticker, start=None, end=None):
     """

@@ -10,9 +10,8 @@ def main():
     # Fetch the historical data for each stock in the portfolio
     portfolio_data = get_portfolio_data(portfolio_tickers)
     
-    # Generate Correlation Matrix
-    generate_correlation_graph(portfolio_data)
-    # apply_extremal_graph_theory(portfolio_data, corr_threshold=0.5, max_clique_size=3)
+    # generate_correlation_graph(portfolio_data)
+    apply_extremal_graph_theory(portfolio_data, corr_threshold=0.2, max_clique_size=3, image_name="Extremal_Graph_Theory.png")
     
 
 if __name__ == "__main__":

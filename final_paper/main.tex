@@ -154,48 +154,16 @@ The figure has 30 vertices and 435 total edges. The average number of degrees fo
 \begin{definition}[Extremal Graph Theorem] Let $G$ be a graph with $n$ vertices and $m$ edges. Then, if $G$ does not contain a subgraph isomorphic to $K_{r+1}$, the complete graph on $r+1$ vertices, then $m \leq \frac{r}{2}(n-1)$.
 \end{definition}
 
-Extremal Graph Thoerem is a powerful tool in portfolio optimiziation. The theorem can be particularly useful in preventing over-concentration of correlated assets, thus enhancing the robustness of the portfolio against market volatility. The theorem states that if a graph does not contain a subgraph isomorphic to $K_{r+1}$, then the number of edges in the graph is bounded by $\frac{r}{2}(n-1)$. In the context of a stock portfolio, avoiding a subgraph $K_{r+1}$ means ensuring that no group of $r+1$ stocks are all heavily correlated with each other. This helps in spreading out the investment risk by limiting the number of direct correlations any single stock has within the portfolio, thus achieving a higher degree of diversification. 
+Extremal Graph Thoerem is a powerful tool in portfolio optimiziation. The theorem can be particularly useful in preventing over-concentration of correlated assets, thus enhancing the robustness of the portfolio against market volatility. The theorem states that if a graph does not contain a subgraph isomorphic to $K_{r+1}$, then the number of edges in the graph is bounded by $\frac{r}{2}(n-1)$. In the context of a stock portfolio, avoiding a subgraph $K_{r+1}$ means ensuring that no group of $r+1$ stocks are all heavily correlated with each other. This helps in spreading out the investment risk by limiting the number of direct correlations any single stock has within the portfolio, thus achieving a higher degree of diversification. For example, a conservative portfolio may want to exclude any subset of 3 stocks from being mutually interconnected. In this case, $r = 3$ and $n = 30$ (since the portfolio contains 30 stocks). By applying the theorem, we can calculate the maximum number of edges allowed in the graph to maintain a diversified portfolio.
 
-For example, a conservative portfolio may want to exclude any subset of 3 stocks from being mutually interconnected. In this case, $r = 3$ and $n = 30$ (since the portfolio contains 30 stocks). By applying the theorem, we can calculate the maximum number of edges allowed in the graph to maintain a diversified portfolio:
+For further optimization, I only allowed an edge to be drawn in the graph if the correlation between two stocks was less than .2. This number was selected as it is less than the average correlations strength of the original graph show in Figure 1. Figure 2 shows a graph that does not contain cliques of size 3 or more and has a correlation threshold of .5. The resulting graph, shown in Figure 2, still has 30 nodes but the number of edges has been reduced to only 74. The average correlation strength for the graph is 0.08.
 
-\subsection{Optimization and Diversification Using Extremal Graph Theory}
+\begin{figure}[h]
+    \caption{Extremal Graph Theory applied to the correlation matrix graph}
+    \centering
+    \includegraphics[width=0.7\textwidth]{extremal_graph_theory.png}
+\end{figure}    
 
-Extremal Graph Theory provides a theoretical framework to understand the boundaries within which a portfolio can be diversified by analyzing the structure of correlations as a graph. By representing each stock as a vertex and the significant Spearman Rank correlations between them as edges, one can apply Extremal Graph Theory to ensure an optimally diversified portfolio.
-
-\subsubsection{Application of Extremal Graph Theorem}
-
-The theorem can be particularly useful in preventing over-concentration of correlated assets, thus enhancing the robustness of the portfolio against market volatility. The theorem states:
-\[
-{Let } G { be a graph with } n { vertices and } m { edges. If } G { does not contain a subgraph isomorphic to } K_{r+1}, { then: }
-\]
-\[
-m \leq \frac{r}{2} (n-1)
-\]
-
-\paragraph{Interpretation for Financial Portfolios}
-In the context of a stock portfolio, avoiding a subgraph $K_{r+1}$ means ensuring that no group of $r+1$ stocks are all heavily correlated with each other. This helps in spreading out the investment risk by limiting the number of direct correlations any single stock has within the portfolio, thus achieving a higher degree of diversification.
-
-\subsubsection{Integration with Spearman's Rank Coefficient}
-
-The Spearman's Rank Coefficient is utilized to define the edges of the graph, where each edge represents a significant correlation between the ranks of the stock prices. By setting a threshold for Spearman's correlation coefficient, financial analysts can selectively create edges between stocks that have a high degree of correlation. These correlations, when analyzed under the constraints of Extremal Graph Theory, aid in understanding and controlling the structure of dependencies within the portfolio.
-
-\paragraph{Practical Implementation}
-Consider a portfolio with 30 stocks. If our goal is to prevent any subset of 5 stocks from being mutually interconnected, we apply the theorem as follows:
-\[
-r = 4 \quad ({since } K_5 {contains 5 vertices})
-\]
-\[
-m \leq \frac{4}{2} (30-1) = 58
-\]
-This calculation indicates that to maintain a diversified portfolio, one should aim for no more than 58 significant pairwise correlations among the stocks.
-
-By applying Extremal Graph Theory in conjunction with Spearman's Rank Correlation, portfolio managers can strategically structure their asset allocations to minimize systemic risk and enhance returns, all while maintaining compliance with diversification requirements.
-
-\begin{itemize}
-    \item Theoretical Framework: Explain the extremal graph theorem.
-    \item Application: Demonstrate how this theorem can predict the maximum or minimum number of edges under certain conditions, which translates to understanding the limits of diversification in a portfolio.
-    \item Examples: Provide hypothetical examples of portfolios and how the theorem applies.
-\end{itemize}
 
 
 % [Main Section]
@@ -319,54 +287,84 @@ def get_portfolio_data(tickers):
 \end{lstlisting}
 
 
-\subsection{Pearson Correlation Coefficient and Correlation Matrix Graph}
+\subsection{Get Pearson Correlation Coefficient}
 
 \begin{lstlisting}[language=python]
-def generate_correlation_matrix(portfolio_data):
+def get_pearson_correlation_matrix(portfolio_data):
     returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
     returns_df = pd.DataFrame(returns)
 
-    correlation_matrix = returns_df.corr(method='pearson')
+    return returns_df.corr(method='pearson')
+\end{lstlisting}
 
-    threshold = -1
-    G = nx.Graph()
-    for stock1 in correlation_matrix.columns:
-        for stock2 in correlation_matrix.index:
-            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > threshold:
-                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
+\subsection{Display Graph}
+This helper function makes displaying a graph using color mapped edges easier.
 
-    # position nodes
-    pos = nx.spring_layout(G, k=0.2, scale=1)  
+\begin{lstlisting}[language=python]
+def draw_graph(G):
+    pos = nx.spring_layout(G, k=0.2, scale=1)  # positions for all nodes
 
     # Generate edge colors based on weight
     weights = [G[u][v]['weight'] for u,v in G.edges()]
     edges = G.edges()
     edge_colors = plt.cm.viridis((np.array(weights) - min(weights)) / 
-                                    (max(weights) - min(weights)))
+                                 (max(weights) - min(weights)))
+    fig, ax = plt.subplots()
 
-    fig, ax = plt.subplots()  # Create a figure and an axes.
-
-    # Drawing nodes
+    # Drawing Nodes, Edges, and Labels
     nx.draw_networkx_nodes(G, pos, node_color='skyblue', node_size=700, ax=ax)
-
-    # Drawing edges with colormap
     nx.draw_networkx_edges(G, pos, edgelist=edges, edge_color=edge_colors, ax=ax)
-
-    # Drawing labels
-    nx.draw_networkx_labels(G, pos, ax=ax)
+    nx.draw_networkx_labels(G, pos, font_size=10, font_family='sans-serif', ax=ax)
 
     # Color bar settings
     sm = plt.cm.ScalarMappable(cmap=plt.cm.viridis, 
             norm=plt.Normalize(vmin=min(weights), vmax=max(weights)))
     sm.set_array([])
-    # Link the colorbar to the axes
     cbar = plt.colorbar(sm, ax=ax, orientation='vertical')  
     cbar.set_label('Correlation Strength')
 
-    plt.axis('off') 
-    plt.show() 
+    plt.axis('off')
+    plt.show()
 \end{lstlisting}
+
+\subsection{Draw Correlation Matrix Graph}
+
+\begin{lstlisting}[language=python]
+    def draw_correlation_matrix_graph(portfolio_data, corr_threshold=-1):
+    correlation_matrix = get_pearson_correlation_matrix(portfolio_data)
     
+    G = nx.Graph()
+    for stock1 in correlation_matrix.columns:
+        for stock2 in correlation_matrix.index:
+            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > corr_threshold:
+                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
+    
+    draw_graph(G, image_name)
+\end{lstlisting}
+
+\clearpage
+
+\subsection{Apply Extremal Graph Theory}
+
+\begin{lstlisting}[language=python]
+def apply_extremal_graph_theory(portfolio_data, corr_threshold=-1, max_clique_size=3):
+    correlation_matrix = get_pearson_correlation_matrix(portfolio_data)
+    G = nx.Graph()
+
+    # Add edges based on the correlation threshold and avoiding cliques
+    for stock1 in correlation_matrix.columns:
+        for stock2 in correlation_matrix.index:
+            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] < corr_threshold:
+                # Tentatively add edge
+                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
+
+                # Check for cliques and remove the edge if it forms a forbidden clique
+                if any(len(clique) >= max_clique_size for clique in nx.find_cliques(G)):
+                    G.remove_edge(stock1, stock2)
+
+    draw_graph(G, image_name)
+\end{lstlisting}
+
 \end{appendices}
 
 \end{document}
