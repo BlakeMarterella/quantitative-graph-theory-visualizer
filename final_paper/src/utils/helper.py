@@ -6,6 +6,7 @@ import os
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 import json
 
 BASE_URL = "http://127.0.0.1:5000/"
@@ -123,7 +124,7 @@ def generate_correlation_matrix(portfolio_data):
 
     '''         Step 2: Graph Construction      '''
     
-    threshold = 0.5  # Define your own threshold
+    threshold = 0.0  # Define your own threshold
     G = nx.Graph()
     for stock1 in correlation_matrix.columns:
         for stock2 in correlation_matrix.index:
@@ -165,6 +166,49 @@ def generate_correlation_matrix(portfolio_data):
     
     return correlation_matrix
     
+def generate_correlation_matrix2(portfolio_data):
+    returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
+    returns_df = pd.DataFrame(returns)
+
+    correlation_matrix = returns_df.corr(method='pearson')
+
+    threshold = -1
+    G = nx.Graph()
+    for stock1 in correlation_matrix.columns:
+        for stock2 in correlation_matrix.index:
+            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > threshold:
+                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
+
+    pos = nx.spring_layout(G, k=0.2, scale=1)  # positions for all nodes
+
+    # Generate edge colors based on weight
+    weights = [G[u][v]['weight'] for u,v in G.edges()]
+    edges = G.edges()
+    edge_colors = plt.cm.viridis((np.array(weights) - min(weights)) / (max(weights) - min(weights)))
+
+    fig, ax = plt.subplots()  # Create a figure and an axes.
+
+    # Drawing nodes
+    nx.draw_networkx_nodes(G, pos, node_color='skyblue', node_size=700, ax=ax)
+
+    # Drawing edges with colormap
+    nx.draw_networkx_edges(G, pos, edgelist=edges, edge_color=edge_colors, width=2, ax=ax)
+
+    # Drawing labels
+    nx.draw_networkx_labels(G, pos, font_size=10, font_family='sans-serif', ax=ax)
+
+    # Color bar settings
+    sm = plt.cm.ScalarMappable(cmap=plt.cm.viridis, norm=plt.Normalize(vmin=min(weights), vmax=max(weights)))
+    sm.set_array([])
+    # Link the colorbar to the axes
+    cbar = plt.colorbar(sm, ax=ax, orientation='vertical')  
+    cbar.set_label('Correlation Strength')
+
+    plt.axis('off')  # Turn off the axis
+    plt.savefig('correlation_matrix_graph.png')
+    plt.show()  # Display the graph
+
+
 
 def get_portfolio_data(tickers):
     """

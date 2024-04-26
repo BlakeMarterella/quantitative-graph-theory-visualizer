@@ -8,7 +8,10 @@
 \usepackage{subcaption}
 \usepackage{bookmark}
 \usepackage{listings}
+\usepackage{paralist}
+\usepackage{graphicx}
 \usepackage[toc,page]{appendix}
+\graphicspath{{./images/}}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -44,7 +47,7 @@ In this study we will explore the intersection of combinatorics and finance, spe
 
 \subsection{Brief History}
 
-Mathematics has always been a powerful tool for humans to discover and describe seemingly complex patterns in the natural world. From the ancient days of arithemetic used to facilitate trade to the complex algorithms governing modern financial markets, mathematics has been an indispensable tool. The pivotal moment in the incorporation of mathematics into finance occured in 1654 when two great mathematicians, Blaise Pascal and Pierre de Fermat, developed probability theory to help predict the outcome of gambling [KD2010]. The ideas introduced in 1654 would evolve and help create the first automated trading system in 1949. Richard Donchian founded a commodity fund that used rule-based trading to execute trades based on moving averages in the market [LS2023]. These early pioneers set the stage for a methematical framework that would evolve into critical financial theories such as portfolio opimization, diversification, and risk management. In 2023, over 50\% of all trades in the US stock market were executed by algorithms [LS2023]. A critical tool in financal analysis is graph theory which can be used to represent the relationships between various stocks in a portfolio and help investors make more informed decisions. The evolution of graph theory in the financial markets represents an evolving journey from theoretical mathematics to practical financial solutions targeting complex issues from asset management to algorithmic trading.
+Mathematics has always been a powerful tool for humans to discover and describe seemingly complex patterns in the natural world. From the ancient days of arithemetic used to facilitate trade to the complex algorithms governing modern financial markets, mathematics has been an indispensable tool. The pivotal moment in the incorporation of mathematics into finance occured in 1654 when two great mathematicians, Blaise Pascal and Pierre de Fermat, developed probability theory to help predict the outcome of gambling [KD2010]. The ideas introduced in 1654 would evolve and help create the first automated trading system in 1949. Richard Donchian founded a commodity fund that used rule-based trading to execute trades based on moving averages in the market [LS2023]. These early pioneers set the stage for a methematical framework that would evolve into critical financial theories such as portfolio opimization, diversification, and risk management. In 2023, over 50\% of all trades in the US stock market were executed by algorithms [LS2023]. A critical tool in financal analysis is graph theory which can be used to represent the relationships between various stocks in a portfolio and help investors make more informed decisions.
 
 % TODO revise the last two sentences for commas
 
@@ -65,22 +68,22 @@ The field of quantitative graph theory is rapidly expanding and encapsulating fi
 
 \subsection{Data Collection}
 
-For the purpose of this project, I took the time to develop a custom API that allows me to quickly export historical data for a given stock [BM2024]. The API contains an endpoint that allows users to generate a CSV file for any given stock ticker and date range, providing 20 years of historical data. The benefit of developing a custom API is that it allows the developer full control over data-cleaning and preparation on the server side to enforce uniformity and ease-of-use. The fields we are going to use are as follows:
+For the purpose of this paper, I took the time to develop a custom API that allows me to quickly export historical data for a given stock [BM2024]. The API contains an endpoint that allows users to generate a CSV file for any given stock ticker and date range, providing 20 years of historical data. The csv file is loaded into a Pandas dataframe with the following fiels:
 
-\begin{itemize}
+\begin{compactitem}
     \item \bf{Date} - The date of the stock price. 
     \item \bf{Open} - The opening price of the stock on that date.
     \item \bf{High} - The highest price the stock reached on that date.
     \item \bf{Low} - The lowest price the stock reached on that date.
     \item \bf{Close} - The closing price of the stock on that date.
     \item \bf{Volume} - The number of shares traded on that date.
-\end{itemize}
+\end{compactitem}
 
 To enforce the concepts introduced in the paper, we will simulate a sample stock portfolio that contains 30 stocks from the DOW 30\footnote{The Dow Jones Industrial Average was selected because it is a relaitvely small list yet it is one of the most popular metrics to benchmark the stock exchange[DC2018]}. The API endpoint is used to pull a CSV file, hereby referred to as a dataset, for each stock in the portfolio that contains data from the past 4 years\footnote{The number, 4 years of DOW 30 historical data, was selected because it accounts for various financial markets}, along with the fields mentioned above.
 
 \subsection{Data Processing}
 
-Before exploring underlying patterns in the datasets and applying quantitative graph theory, it is important to understand how a graph can be constructed to represent our portfolio. Each stock within our portfolio will be represented as a vertex and the relationship between each stock will be represented as an edge. This edges can be drawn using many different relationships depending on what your graph is attempting to convey, such as: edges connecting companies in the same sector, edges connecting companies with similar market capitalization, etc. For the purpose of this study, each edge will be the correlation factor between stocks.
+Before continuing, it is important to understand how a graph can be constructed to represent using the datasets. Each stock within our portfolio will be represented as a vertex and the relationship between each stock will be represented as an edge. This edges can be drawn using many different relationships depending on what your graph is attempting to convey, such as: edges connecting companies in the same sector, edges connecting companies with similar market capitalization, etc. For the purpose of this study, each edge will be the correlation factor between stocks.
 
 % Pearson Correlation Coefficent
 \begin{definition}[Pearson Correlation Coefficent]
@@ -92,7 +95,7 @@ r = \frac{\sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{Y})}{\sqrt{\sum_{i=1
 
 The Pearson Corelation Coefficient, denoted as $r$, is a measure of the linear relationship between two variables. In the context of this study, $r$ is the correlation between 2 stocks' closing price over a 4 year period. $X_i$ and $Y_i$ is the closing price of stock x and stock y on day $i$. $\overline{X}$ and $\overline{Y}$ is the average closing price of stock x and stock y over the 4 year period. In the formula above, the numerator calculates the covariance between 2 stocks and the deonominator uses product of stock x and stock y's standard deviation. The result is a number between -1 and 1, where -1 is a perfect negative linear relationship (as X increases, Y decreases), 1 is a perfect positive linear relationship (as X increases, Y increases), and 0 represents no linear relationship (there is no way X can predict Y)[ST2024]. 
 
-Using the datasets in our portfolio, the Pearson Correlation is calculated for each pair of stocks. The end result is a correlation matrix shown below, with each of the 30 stocks in the sample portfolio, in bold, as the row and column headers. The values in the matrix represent the spearman rank coefficent between the two stocks' closing price. Note that, the correlation for a stock with itself is always 1.0. The table below shows a sample correlation matrix for the first and last 2 tickers (alphabetically) in the portfolio.
+Using the datasets in our portfolio, $r$ is calculated for each pair of stocks. The result is a correlation matrix. The table below shows a subsection of our correlation matrix using 4 stocks. Note that, the correlation for a stock with itself is always 1.0.
 
 \begin{center}
 \begin{tabularx}{0.8\textwidth}{ 
@@ -115,29 +118,37 @@ Using the datasets in our portfolio, the Pearson Correlation is calculated for e
 \end{tabularx}
 \end{center}    
 
-\subsection{Definitions}
+Figure 1 depicts a graph constructed with the correlation matrix that allows us to visualize the relationships between stocks in the portfolio using a color scale. Although the information presented is not usable, it provides a foundation for the application of graph theory in portfolio management.
+
+\begin{figure}[h]
+    \caption{Correlation Matrix Graph showing the relationships between 30 stocks in our sample portfolio}
+    \centering
+    \includegraphics[width=0.5\textwidth]{correlation_matrix_graph.png}
+\end{figure}    
+
+% \subsection{Definitions}
 
 
-% Extremal Graph Theory
+% % Extremal Graph Theory
 
-\begin{theorem}[Extremal Graph Theorem]
-    Let $G$ be a graph with $n$ vertices and $m$ edges. Then, if $G$ does not contain a subgraph isomorphic to $K_{r+1}$, the complete graph on $r+1$ vertices, then $m \leq \frac{r}{2}(n-1)$.
-\end{theorem}
-
-
-% Greedy Coloring Algorithm
-
-\begin{definition}[Welsch-Powwell Algorithm]
-\end{definition}
-
-Go into detail about the coloring alogirthm
+% \begin{theorem}[Extremal Graph Theorem]
+%     Let $G$ be a graph with $n$ vertices and $m$ edges. Then, if $G$ does not contain a subgraph isomorphic to $K_{r+1}$, the complete graph on $r+1$ vertices, then $m \leq \frac{r}{2}(n-1)$.
+% \end{theorem}
 
 
+% % Greedy Coloring Algorithm
 
-Briefly define graph theory terms that will be used (vertices, edges, etc.). 
+% \begin{definition}[Welsch-Powwell Algorithm]
+% \end{definition}
+
+% Go into detail about the coloring alogirthm
 
 
-Convert the concept of a portfolio from a spreadsheet to a graph with vertices and edges. This concept is the central point of the paper.
+
+% Briefly define graph theory terms that will be used (vertices, edges, etc.). 
+
+
+% Convert the concept of a portfolio from a spreadsheet to a graph with vertices and edges. This concept is the central point of the paper.
 
 
 
@@ -248,63 +259,110 @@ Correlation Graphs for Portfolio Holdings
 
 \begin{appendices}
     
-    \section{Code}
-    
-    Note that the code below was modified from its original form to only show the relavant information. For example, function docstrings, input validation, etc. have been removed for brevity.
-    
-    \subsection{Import Historical Stock Data}
-    
-    \begin{lstlisting}[language=Python]
-        def get_stock_data(ticker, start=None, end=None):    
-            url = f"{BASE_URL}historical-stock-data"
-            params = {
-                "symbol": ticker,
-                "start": start,
-                "end": end,
-                "datatype": "json"
-            }
-            response = requests.get(url, params=params)
-    
-            if response.status_code == 200:
-                data = response.json()  
-                json_data = json.loads(data['data'])
-            
-                # Load the JSON data into a Pandas DataFrame
-                df = pd.DataFrame(json_data) 
-                df['date'] = pd.to_datetime(df['date'])
-                
-                # Ensure the directory exists and save CSV
-                os.makedirs(os.path.dirname(path), exist_ok=True)
-                df.to_csv(path, index=False)
-    
-                return df
-            else:
-                print("Failed to fetch data. Status code:", response.status_code)
-                return None
-    \end{lstlisting}
-    
-    \subsection{Import Historical Stock Data for Portfolio}
-    
-    \begin{lstlisting}[language=Python]
-        def get_portfolio_data(tickers):
-            portfolio_data = {}
-            
-            for ticker in tickers:
-                start = datetime(year=2020, month=4, day=25).strftime('%Y-%m-%d')
-                end = datetime(year=2024, month=4, day=24).strftime('%Y-%m-%d')
-                ticker_df = get_stock_data(ticker, start=start, end=end)
-    
-                if ticker_df.empty:
-                    print(f"Failed to fetch data for {ticker}!")
-                    break
-                else:
-                    portfolio_data[ticker] = ticker_df
-            
-            # Return dictionary of stock dat 
-            return portfolio_data
-    \end{lstlisting}
+\section{Code}
 
-\section{Another Appendix}
+Note that the code below was modified from its original form to only show the relavant information. For example, function docstrings, input validation, etc. have been removed for brevity.
+
+\subsection{Import Historical Stock Data}
+
+\begin{lstlisting}[language=Python]
+def get_stock_data(ticker, start=None, end=None):    
+    url = f"{BASE_URL}historical-stock-data"
+    params = {
+        "symbol": ticker,
+        "start": start,
+        "end": end,
+        "datatype": "json"
+    }
+    response = requests.get(url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()  
+        json_data = json.loads(data['data'])
+    
+        # Load the JSON data into a Pandas DataFrame
+        df = pd.DataFrame(json_data) 
+        df['date'] = pd.to_datetime(df['date'])
+        
+        # Ensure the directory exists and save CSV
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        df.to_csv(path, index=False)
+
+        return df
+    else:
+        print("Failed to fetch data. Status code:", response.status_code)
+        return None
+\end{lstlisting}
+
+\subsection{Import Historical Stock Data for Portfolio}
+
+\begin{lstlisting}[language=Python]
+def get_portfolio_data(tickers):
+    portfolio_data = {}
+    
+    for ticker in tickers:
+        start = datetime(year=2020, month=4, day=25).strftime('%Y-%m-%d')
+        end = datetime(year=2024, month=4, day=24).strftime('%Y-%m-%d')
+        ticker_df = get_stock_data(ticker, start=start, end=end)
+
+        if ticker_df.empty:
+            print(f"Failed to fetch data for {ticker}!")
+            break
+        else:
+            portfolio_data[ticker] = ticker_df
+    
+    # Return dictionary of stock dat 
+    return portfolio_data
+\end{lstlisting}
+
+
+\subsection{Pearson Correlation Coefficient and Correlation Matrix Graph}
+
+\begin{lstlisting}[language=python]
+def generate_correlation_matrix(portfolio_data):
+    returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
+    returns_df = pd.DataFrame(returns)
+
+    correlation_matrix = returns_df.corr(method='pearson')
+
+    threshold = -1
+    G = nx.Graph()
+    for stock1 in correlation_matrix.columns:
+        for stock2 in correlation_matrix.index:
+            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > threshold:
+                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
+
+    # position nodes
+    pos = nx.spring_layout(G, k=0.2, scale=1)  
+
+    # Generate edge colors based on weight
+    weights = [G[u][v]['weight'] for u,v in G.edges()]
+    edges = G.edges()
+    edge_colors = plt.cm.viridis((np.array(weights) - min(weights)) / 
+                                    (max(weights) - min(weights)))
+
+    fig, ax = plt.subplots()  # Create a figure and an axes.
+
+    # Drawing nodes
+    nx.draw_networkx_nodes(G, pos, node_color='skyblue', node_size=700, ax=ax)
+
+    # Drawing edges with colormap
+    nx.draw_networkx_edges(G, pos, edgelist=edges, edge_color=edge_colors, ax=ax)
+
+    # Drawing labels
+    nx.draw_networkx_labels(G, pos, ax=ax)
+
+    # Color bar settings
+    sm = plt.cm.ScalarMappable(cmap=plt.cm.viridis, 
+            norm=plt.Normalize(vmin=min(weights), vmax=max(weights)))
+    sm.set_array([])
+    # Link the colorbar to the axes
+    cbar = plt.colorbar(sm, ax=ax, orientation='vertical')  
+    cbar.set_label('Correlation Strength')
+
+    plt.axis('off') 
+    plt.show() 
+\end{lstlisting}
     
 \end{appendices}
 

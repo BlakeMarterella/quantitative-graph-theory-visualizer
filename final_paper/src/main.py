@@ -17,9 +17,9 @@ def main():
     # visualize_greedy_coloring(portfolio_data)
     
     # Generate Correlation Matrix
-    p_correlation_mat = generate_correlation_matrix(portfolio_data)
+    generate_correlation_matrix2(portfolio_data)
     
-    print(p_correlation_mat)
+    # print(p_correlation_mat)
     
 
 if __name__ == "__main__":
