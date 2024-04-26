@@ -6,6 +6,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{bookmark}
+\usepackage{listings}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -39,9 +40,11 @@ In this study we will explore the intersection of combinatorics and finance, spe
 % [Introduction]
 \section{Introduction}
 
-\subsection{Background}
+\subsection{Brief History}
 
 Mathematics has always been a powerful tool for humans to discover and describe seemingly complex patterns in the natural world. From the ancient days of arithemetic used to facilitate trade to the complex algorithms governing modern financial markets, mathematics has been an indispensable tool. The pivotal moment in the incorporation of mathematics into finance occured in 1654 when two great mathematicians, Blaise Pascal and Pierre de Fermat, developed probability theory to help predict the outcome of gambling [KD2010]. The ideas introduced in 1654 would evolve and help create the first automated trading system in 1949. Richard Donchian founded a commodity fund that used rule-based trading to execute trades based on moving averages in the market [LS2023]. These early pioneers set the stage for a methematical framework that would evolve into critical financial theories such as portfolio opimization, diversification, and risk management. In 2023, over 50\% of all trades in the US stock market were executed by algorithms [LS2023]. A critical tool in financal analysis is graph theory which can be used to represent the relationships between various stocks in a portfolio and help investors make more informed decisions. The evolution of graph theory in the financial markets represents an evolving journey from theoretical mathematics to practical financial solutions targeting complex issues from asset management to algorithmic trading.
+
+% TODO revise the last two sentences for commas
 
 \subsection{Interest}
 
@@ -58,9 +61,24 @@ The field of quantitative graph theory is rapidly expanding and encapsulating fi
 % [Main Section]
 \section{Background}
 
-Before exploring underlying patterns in historical stock data and applying quantitative graph theory. It is important to have an understanding of how a graph can be constructed to represent a stock portfolio. At our most simple defintion, each stock within our portfolio will be represented as a vertex and the relationship between each stock will be represented as an edge. This relationship can be many different factors such as edges: connecting companies in the same sector, edges connecting companies with similar market capitalization, etc. For the purpose of this study, each edge will be the correlation factor between stocks. The specifics on how to calculate this correlation factor will be explored in the definitions below and applied later in the study.
+\subsection{Data Collection}
 
-\subsection{Definitions}
+For the purpose of this project, I took the time to develop a custom API that allows me to quickly export historical data for a given stock [BM2024]. The API contains an endpoint that allows users to generate a CSV file for any given stock ticker and date range, providing 20 years of historical data. The benefit of developing a custom API is that it allows the developer full control over data-cleaning and preparation on the server side to enforce uniformity and ease-of-use. The fields we are going to use are as follows:
+
+\begin{itemize}
+    \item \bf{Date} - The date of the stock price. 
+    \item \bf{Open} - The opening price of the stock on that date.
+    \item \bf{High} - The highest price the stock reached on that date.
+    \item \bf{Low} - The lowest price the stock reached on that date.
+    \item \bf{Close} - The closing price of the stock on that date.
+    \item \bf{Volume} - The number of shares traded on that date.
+\end{itemize}
+
+To enforce the concepts introduced in the paper, we will simulate a sample stock portfolio that contains 30 stocks from the DOW 30\footnote{The Dow Jones Industrial Average was selected because it is a relaitvely small list yet it is one of the most popular metrics to benchmark the stock exchange[DC2018]}. The API endpoint is used to pull a CSV file, hereby referred to as a dataset, for each stock in the portfolio that contains data from the past 4 years\footnote{The number, 4 years of DOW 30 historical data, was selected because it accounts for various financial markets}, along with the fields mentioned above.
+
+\subsection{Data Processing}
+
+Before exploring underlying patterns in the datasets and applying quantitative graph theory, it is important to understand how a graph can be constructed to represent our portfolio. Each stock within our portfolio will be represented as a vertex and the relationship between each stock will be represented as an edge. This edges can be drawn using many different relationships depending on what your graph is attempting to convey, such as: edges connecting companies in the same sector, edges connecting companies with similar market capitalization, etc. For the purpose of this study, each edge will be the correlation factor between stocks.
 
 % Spearman Rank Coefficent
 \begin{definition}[Spearman Rank Coefficent]
@@ -70,14 +88,16 @@ Before exploring underlying patterns in historical stock data and applying quant
 \rho = 1 - \frac{6 \sum d_i^2}{n(n^2-1)}
 \]
 
-The Spearman Rank Coefficient, denoted as $\rho$ (rho), is a measure of the association between two variables. In the context of this study, the Spearman Rank Coefficient is used to measure the correlation between the closing price of 2 different stocks over a 4 year period. The formula above is used to calculate the correlation between each stock in our portfolio where $d_i$ is the difference between the closing price between 2 stocks and and $n$ is the number of days of historical data. The Spearman Rank Coefficient was used instead of the Pearson Correlation Coefficient because it can compute the correlation without the interference of outliers and the data does not need to be linear [JAJCDBRGZC2017]. The coefficent will created between stocks will be the edge between the two vertices in the graph and help users visualize how their portfolio is correlated. 
+The Spearman Rank Coefficient, denoted as $\rho$ (rho), is a measure of the association between two variables. In the context of this study, the Spearman Rank Coefficient is used to measure the correlation between the closing price of 2 different stocks over a 4 year period. The formula above is used to calculate the correlation between each stock in our portfolio where $d_i$ is the difference between the closing price between 2 stocks and and $n$ is the number of days of historical data. The coefficent will created between stocks will be the edge between the two vertices in the graph and help users visualize how their portfolio is correlated. In this paper, the Spearman Rank Coefficient was chosen over the Pearson Correlation Coefficient because it can compute the correlation without the interference of outliers and the data does not need to be linear [JAJCDBRGZC2017].
+
+\subsection{Definitions}
+
 
 % Extremal Graph Theory
 
 \begin{theorem}[Extremal Graph Theorem]
     Let $G$ be a graph with $n$ vertices and $m$ edges. Then, if $G$ does not contain a subgraph isomorphic to $K_{r+1}$, the complete graph on $r+1$ vertices, then $m \leq \frac{r}{2}(n-1)$.
 \end{theorem}
-
 
 
 % Greedy Coloring Algorithm
@@ -95,26 +115,42 @@ Briefly define graph theory terms that will be used (vertices, edges, etc.).
 Convert the concept of a portfolio from a spreadsheet to a graph with vertices and edges. This concept is the central point of the paper.
 
 
-\subsection{Data Collection and Processing}
-
-For the purpose of this project, I took the time to develop a custom API that allows me to quickly export historical data for a given stock\footnote{Full documentation and a link to the source code of the custom API can be found on my website, linked in the references section.}. The API contains an endpoint that allows users to generate a CSV file for any given stock ticker and date range, providing 20 years of historical data. The benefit of developing a custom API is that it allows the developer full control over data-cleaning and preparation on the server side to enforce uniformity and ease-of-use. The fields we are going to use are as follows:
-
-\begin{itemize}
-    \item \bf{Date} - The date of the stock price. 
-    \item \bf{Open} - The opening price of the stock on that date.
-    \item \bf{High} - The highest price the stock reached on that date.
-    \item \bf{Low} - The lowest price the stock reached on that date.
-    \item \bf{Close} - The closing price of the stock on that date.
-    \item \bf{Volume} - The number of shares traded on that date.
-\end{itemize}
-
-To enforce the concepts introduced in the paper, we will create a sample stock portfolio that contains 30 stocks from the DOW 30. The API described above is used to create a CSV file for each stock in the portfolio that contains data from the past 4 years\footnote{The number, 4 years of DOW 30 historical data, was selected because it accounts for various financial markets}. From here, the concepts of graph theory will be applied to inform the user of the risk and diversification of their portfolio and help build a better understanding of their holdings and potential techniques on how to diversify and mitigate risk.
 
 % [Main Section]
 \section{Portfolio Optimization}
 
-Optimization and Diversification
-Extremal Graph Theory
+\subsection{Optimization and Diversification Using Extremal Graph Theory}
+
+Extremal Graph Theory provides a theoretical framework to understand the boundaries within which a portfolio can be diversified by analyzing the structure of correlations as a graph. By representing each stock as a vertex and the significant Spearman Rank correlations between them as edges, one can apply Extremal Graph Theory to ensure an optimally diversified portfolio.
+
+\subsubsection{Application of Extremal Graph Theorem}
+
+The theorem can be particularly useful in preventing over-concentration of correlated assets, thus enhancing the robustness of the portfolio against market volatility. The theorem states:
+\[
+{Let } G { be a graph with } n { vertices and } m { edges. If } G { does not contain a subgraph isomorphic to } K_{r+1}, { then: }
+\]
+\[
+m \leq \frac{r}{2} (n-1)
+\]
+
+\paragraph{Interpretation for Financial Portfolios}
+In the context of a stock portfolio, avoiding a subgraph $K_{r+1}$ means ensuring that no group of $r+1$ stocks are all heavily correlated with each other. This helps in spreading out the investment risk by limiting the number of direct correlations any single stock has within the portfolio, thus achieving a higher degree of diversification.
+
+\subsubsection{Integration with Spearman's Rank Coefficient}
+
+The Spearman's Rank Coefficient is utilized to define the edges of the graph, where each edge represents a significant correlation between the ranks of the stock prices. By setting a threshold for Spearman's correlation coefficient, financial analysts can selectively create edges between stocks that have a high degree of correlation. These correlations, when analyzed under the constraints of Extremal Graph Theory, aid in understanding and controlling the structure of dependencies within the portfolio.
+
+\paragraph{Practical Implementation}
+Consider a portfolio with 30 stocks. If our goal is to prevent any subset of 5 stocks from being mutually interconnected, we apply the theorem as follows:
+\[
+r = 4 \quad ({since } K_5 {contains 5 vertices})
+\]
+\[
+m \leq \frac{4}{2} (30-1) = 58
+\]
+This calculation indicates that to maintain a diversified portfolio, one should aim for no more than 58 significant pairwise correlations among the stocks.
+
+By applying Extremal Graph Theory in conjunction with Spearman's Rank Correlation, portfolio managers can strategically structure their asset allocations to minimize systemic risk and enhance returns, all while maintaining compliance with diversification requirements.
 
 \begin{itemize}
     \item Theoretical Framework: Explain the extremal graph theorem.
@@ -124,7 +160,7 @@ Extremal Graph Theory
 
 
 % [Main Section]
-\section{Risk Assessment}
+\section{Risk Management}
 Coloring algorithms for risk assesment and management
 
 \begin{itemize}
@@ -172,7 +208,71 @@ Correlation Graphs for Portfolio Holdings
     % https://evoq-eval.siam.org/Portals/0/Publications/SIURO/Volume%2010/Analysis_Equity_Markets_A_Graph_Theory_Approach.pdf
     \bibitem[JAJCDBRGZC2017]{Z}
     J. R. Abrams, J. C., D. B., R. G., Z. C., \emph{Analysis of Equity Markets: A Graph Theory Approach}, The University of Arizona, Department of Mathematics (2017).
-    % https://factmyth.com/factoids/probability-theory-was-invented-to-solve-a-gambling-problem/
+    % https://www.fool.com/investing/2018/07/23/a-foolish-take-how-often-do-dow-stocks-get-replace.aspx
+    \bibitem[DC2018]{Z}
+    D. Caplinger, \emph{How Often Do Dow Stocks Get Replaced}, The Motley Fool (2018).
+    % https://www.marterella.com/projects/stock-market-api
+    \bibitem[BM2024]{Z}
+    B. Marterella \emph{Stock Market API}, marterella.com (2024).
 \end{thebibliography}
+
+\clearpage
+
+\appendix
+
+\section{Code}
+Note that the code below was modified from its original form to only show the relavant information. For example, function docstrings, input validation, etc. have been removed for brevity.
+
+\subsection{Import Historical Stock Data}
+
+\begin{lstlisting}[language=Python]
+    def get_stock_data(ticker, start=None, end=None):    
+        url = f"{BASE_URL}historical-stock-data"
+        params = {
+            "symbol": ticker,
+            "start": start,
+            "end": end,
+            "datatype": "json"
+        }
+        response = requests.get(url, params=params)
+
+        if response.status_code == 200:
+            data = response.json()  
+            json_data = json.loads(data['data'])
+        
+            # Load the JSON data into a Pandas DataFrame
+            df = pd.DataFrame(json_data) 
+            df['date'] = pd.to_datetime(df['date'])
+            
+            # Ensure the directory exists and save CSV
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            df.to_csv(path, index=False)
+
+            return df
+        else:
+            print("Failed to fetch data. Status code:", response.status_code)
+            return None
+\end{lstlisting}
+
+\subsection{Import Historical Stock Data for Portfolio}
+
+\begin{lstlisting}[language=Python]
+    def get_portfolio_data(tickers):
+        portfolio_data = {}
+        
+        for ticker in tickers:
+            start = datetime(year=2020, month=4, day=25).strftime('%Y-%m-%d')
+            end = datetime(year=2024, month=4, day=24).strftime('%Y-%m-%d')
+            ticker_df = get_stock_data(ticker, start=start, end=end)
+
+            if ticker_df.empty:
+                print(f"Failed to fetch data for {ticker}!")
+                break
+            else:
+                portfolio_data[ticker] = ticker_df
+        
+        # Return dictionary of stock dat 
+        return portfolio_data
+\end{lstlisting}
 
 \end{document}

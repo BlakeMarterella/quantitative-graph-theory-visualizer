@@ -182,7 +182,10 @@ def get_portfolio_data(tickers):
     
     for ticker in tickers:
         # Get the stock data for each ticker from 2 years ago to today
-        ticker_df = get_stock_data(ticker)
+        # Make a datetime for start 
+        start = datetime(year=2020, month=4, day=25).strftime('%Y-%m-%d')
+        end = datetime(year=2024, month=4, day=24).strftime('%Y-%m-%d')
+        ticker_df = get_stock_data(ticker, start=start, end=end)
 
         if ticker_df.empty:
             print(f"Failed to fetch data for {ticker}!")
