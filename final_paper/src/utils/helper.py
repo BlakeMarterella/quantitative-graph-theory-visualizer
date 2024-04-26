@@ -119,7 +119,7 @@ def generate_correlation_matrix(portfolio_data):
     returns_df = pd.DataFrame(returns)
 
     # Compute correlation matrix
-    correlation_matrix = returns_df.corr()
+    correlation_matrix = returns_df.corr(method='pearson')
 
     '''         Step 2: Graph Construction      '''
     

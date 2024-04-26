@@ -4,9 +4,11 @@
 \usepackage{hyperref}
 \usepackage{tikz}
 \usepackage{caption}
+\usepackage{tabularx}
 \usepackage{subcaption}
 \usepackage{bookmark}
 \usepackage{listings}
+\usepackage[toc,page]{appendix}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -80,15 +82,38 @@ To enforce the concepts introduced in the paper, we will simulate a sample stock
 
 Before exploring underlying patterns in the datasets and applying quantitative graph theory, it is important to understand how a graph can be constructed to represent our portfolio. Each stock within our portfolio will be represented as a vertex and the relationship between each stock will be represented as an edge. This edges can be drawn using many different relationships depending on what your graph is attempting to convey, such as: edges connecting companies in the same sector, edges connecting companies with similar market capitalization, etc. For the purpose of this study, each edge will be the correlation factor between stocks.
 
-% Spearman Rank Coefficent
-\begin{definition}[Spearman Rank Coefficent]
+% Pearson Correlation Coefficent
+\begin{definition}[Pearson Correlation Coefficent]
 \end{definition}
 
 \[
-\rho = 1 - \frac{6 \sum d_i^2}{n(n^2-1)}
+r = \frac{\sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{Y})}{\sqrt{\sum_{i=1}^n (X_i - \overline{X})^2} \sqrt{\sum_{i=1}^n (Y_i - \overline{Y})^2}}
 \]
 
-The Spearman Rank Coefficient, denoted as $\rho$ (rho), is a measure of the association between two variables. In the context of this study, the Spearman Rank Coefficient is used to measure the correlation between the closing price of 2 different stocks over a 4 year period. The formula above is used to calculate the correlation between each stock in our portfolio where $d_i$ is the difference between the closing price between 2 stocks and and $n$ is the number of days of historical data. The coefficent will created between stocks will be the edge between the two vertices in the graph and help users visualize how their portfolio is correlated. In this paper, the Spearman Rank Coefficient was chosen over the Pearson Correlation Coefficient because it can compute the correlation without the interference of outliers and the data does not need to be linear [JAJCDBRGZC2017].
+The Pearson Corelation Coefficient, denoted as $r$, is a measure of the linear relationship between two variables. In the context of this study, $r$ is the correlation between 2 stocks' closing price over a 4 year period. $X_i$ and $Y_i$ is the closing price of stock x and stock y on day $i$. $\overline{X}$ and $\overline{Y}$ is the average closing price of stock x and stock y over the 4 year period. In the formula above, the numerator calculates the covariance between 2 stocks and the deonominator uses product of stock x and stock y's standard deviation. The result is a number between -1 and 1, where -1 is a perfect negative linear relationship (as X increases, Y decreases), 1 is a perfect positive linear relationship (as X increases, Y increases), and 0 represents no linear relationship (there is no way X can predict Y)[ST2024]. 
+
+Using the datasets in our portfolio, the Pearson Correlation is calculated for each pair of stocks. The end result is a correlation matrix shown below, with each of the 30 stocks in the sample portfolio, in bold, as the row and column headers. The values in the matrix represent the spearman rank coefficent between the two stocks' closing price. Note that, the correlation for a stock with itself is always 1.0. The table below shows a sample correlation matrix for the first and last 2 tickers (alphabetically) in the portfolio.
+
+\begin{center}
+\begin{tabularx}{0.8\textwidth}{ 
+    | >{\centering\arraybackslash}X  
+    | >{\centering\arraybackslash}X  
+    | >{\centering\arraybackslash}X  
+    | >{\centering\arraybackslash}X  
+    | >{\centering\arraybackslash}X | } 
+      \hline
+       & \bf{AXP} & \bf{AMGN} & \bf{DIS} & \bf{DOW} \\ 
+      \hline
+      \bf{AXP} & 1 & 0.160404 & 0.553888 & 0.586814 \\ 
+      \hline
+      \bf{AMGN} & 0.160404 & 1 & 0.141811 & 0.192764 \\ 
+      \hline
+      \bf{DIS} & 0.553888 & 0.141811 & 1 & 0.463608 \\ 
+      \hline
+      \bf{DOW} & 0.586814 & 0.192764 & 0.463608 & 1 \\ 
+      \hline
+\end{tabularx}
+\end{center}    
 
 \subsection{Definitions}
 
@@ -205,9 +230,12 @@ Correlation Graphs for Portfolio Holdings
     % https://dl.acm.org/doi/abs/10.1016/j.ins.2017.08.009
     \bibitem[MSFEYS2017]{Z}
     M. Dehmer, S. Emmert-Streib, Y. Shi, \emph{Quantitative Graph Theory}, Information Sciences, Vol. 418 \textbf{Issue C}, Association for Computing Machinery Digital Library (2017).
+    % https://www.scribbr.com/statistics/pearson-correlation-coefficient/
+    \bibitem[ST2024]{Z}
+    S. Turney, \emph{Pearson Correlation Coefficent}, Scribbr (2024).
     % https://evoq-eval.siam.org/Portals/0/Publications/SIURO/Volume%2010/Analysis_Equity_Markets_A_Graph_Theory_Approach.pdf
-    \bibitem[JAJCDBRGZC2017]{Z}
-    J. R. Abrams, J. C., D. B., R. G., Z. C., \emph{Analysis of Equity Markets: A Graph Theory Approach}, The University of Arizona, Department of Mathematics (2017).
+    % \bibitem[JAJCDBRGZC2017]{Z}
+    % J. R. Abrams, J. C., D. B., R. G., Z. C., \emph{Analysis of Equity Markets: A Graph Theory Approach}, The University of Arizona, Department of Mathematics (2017).
     % https://www.fool.com/investing/2018/07/23/a-foolish-take-how-often-do-dow-stocks-get-replace.aspx
     \bibitem[DC2018]{Z}
     D. Caplinger, \emph{How Often Do Dow Stocks Get Replaced}, The Motley Fool (2018).
@@ -218,61 +246,66 @@ Correlation Graphs for Portfolio Holdings
 
 \clearpage
 
-\appendix
-
-\section{Code}
-Note that the code below was modified from its original form to only show the relavant information. For example, function docstrings, input validation, etc. have been removed for brevity.
-
-\subsection{Import Historical Stock Data}
-
-\begin{lstlisting}[language=Python]
-    def get_stock_data(ticker, start=None, end=None):    
-        url = f"{BASE_URL}historical-stock-data"
-        params = {
-            "symbol": ticker,
-            "start": start,
-            "end": end,
-            "datatype": "json"
-        }
-        response = requests.get(url, params=params)
-
-        if response.status_code == 200:
-            data = response.json()  
-            json_data = json.loads(data['data'])
-        
-            # Load the JSON data into a Pandas DataFrame
-            df = pd.DataFrame(json_data) 
-            df['date'] = pd.to_datetime(df['date'])
+\begin{appendices}
+    
+    \section{Code}
+    
+    Note that the code below was modified from its original form to only show the relavant information. For example, function docstrings, input validation, etc. have been removed for brevity.
+    
+    \subsection{Import Historical Stock Data}
+    
+    \begin{lstlisting}[language=Python]
+        def get_stock_data(ticker, start=None, end=None):    
+            url = f"{BASE_URL}historical-stock-data"
+            params = {
+                "symbol": ticker,
+                "start": start,
+                "end": end,
+                "datatype": "json"
+            }
+            response = requests.get(url, params=params)
+    
+            if response.status_code == 200:
+                data = response.json()  
+                json_data = json.loads(data['data'])
             
-            # Ensure the directory exists and save CSV
-            os.makedirs(os.path.dirname(path), exist_ok=True)
-            df.to_csv(path, index=False)
-
-            return df
-        else:
-            print("Failed to fetch data. Status code:", response.status_code)
-            return None
-\end{lstlisting}
-
-\subsection{Import Historical Stock Data for Portfolio}
-
-\begin{lstlisting}[language=Python]
-    def get_portfolio_data(tickers):
-        portfolio_data = {}
-        
-        for ticker in tickers:
-            start = datetime(year=2020, month=4, day=25).strftime('%Y-%m-%d')
-            end = datetime(year=2024, month=4, day=24).strftime('%Y-%m-%d')
-            ticker_df = get_stock_data(ticker, start=start, end=end)
-
-            if ticker_df.empty:
-                print(f"Failed to fetch data for {ticker}!")
-                break
+                # Load the JSON data into a Pandas DataFrame
+                df = pd.DataFrame(json_data) 
+                df['date'] = pd.to_datetime(df['date'])
+                
+                # Ensure the directory exists and save CSV
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                df.to_csv(path, index=False)
+    
+                return df
             else:
-                portfolio_data[ticker] = ticker_df
-        
-        # Return dictionary of stock dat 
-        return portfolio_data
-\end{lstlisting}
+                print("Failed to fetch data. Status code:", response.status_code)
+                return None
+    \end{lstlisting}
+    
+    \subsection{Import Historical Stock Data for Portfolio}
+    
+    \begin{lstlisting}[language=Python]
+        def get_portfolio_data(tickers):
+            portfolio_data = {}
+            
+            for ticker in tickers:
+                start = datetime(year=2020, month=4, day=25).strftime('%Y-%m-%d')
+                end = datetime(year=2024, month=4, day=24).strftime('%Y-%m-%d')
+                ticker_df = get_stock_data(ticker, start=start, end=end)
+    
+                if ticker_df.empty:
+                    print(f"Failed to fetch data for {ticker}!")
+                    break
+                else:
+                    portfolio_data[ticker] = ticker_df
+            
+            # Return dictionary of stock dat 
+            return portfolio_data
+    \end{lstlisting}
+
+\section{Another Appendix}
+    
+\end{appendices}
 
 \end{document}

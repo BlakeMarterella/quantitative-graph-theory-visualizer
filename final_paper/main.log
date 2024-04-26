@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.22)  26 APR 2024 16:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.22)  26 APR 2024 17:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -386,42 +386,67 @@ Package caption Info: Standard document class detected.
 \c@caption@flags=\count298
 \c@continuedfloat=\count299
 Package caption Info: hyperref package is loaded.
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2023/07/08 v2.11c `tabularx' package (DPC)
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/array.sty
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen269
+\ar@mcellbox=\box62
+\extrarowheight=\dimen270
+\NC@list=\toks32
+\extratabsurround=\skip51
+\backup@length=\skip52
+\ar@cellbox=\box63
+)
+\TX@col@width=\dimen271
+\TX@old@table=\dimen272
+\TX@old@col=\dimen273
+\TX@target=\dimen274
+\TX@delta=\dimen275
+\TX@cols=\count300
+\TX@ftn=\toks33
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
 Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count300
+\c@subfigure=\count301
 Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count301
+\c@subtable=\count302
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
  (/usr/local/texlive/2024/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
 File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO)
-\BKM@id=\count302
+\BKM@id=\count303
 )) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count303
-\lst@gtempboxa=\box62
-\lst@token=\toks32
-\lst@length=\count304
-\lst@currlwidth=\dimen269
-\lst@column=\count305
-\lst@pos=\count306
-\lst@lostspace=\dimen270
-\lst@width=\dimen271
-\lst@newlines=\count307
-\lst@lineno=\count308
-\lst@maxwidth=\dimen272
+\lst@mode=\count304
+\lst@gtempboxa=\box64
+\lst@token=\toks34
+\lst@length=\count305
+\lst@currlwidth=\dimen276
+\lst@column=\count306
+\lst@pos=\count307
+\lst@lostspace=\dimen277
+\lst@width=\dimen278
+\lst@newlines=\count308
+\lst@lineno=\count309
+\lst@maxwidth=\dimen279
  (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstpatch.sty
 File: lstpatch.sty 2024/03/11 1.10a (Carsten Heinz)
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2024/03/11 1.10a (Carsten Heinz)
-\c@lstnumber=\count309
-\lst@skipnumbers=\count310
-\lst@framebox=\box63
+\c@lstnumber=\count310
+\lst@skipnumbers=\count311
+\lst@framebox=\box65
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2024/03/11 1.10a listings configuration
 ))
 Package: listings 2024/03/11 1.10a (Carsten Heinz)
-\c@theorem=\count311
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/appendix/appendix.sty
+Package: appendix 2020/02/08 v1.2c extra appendix facilities
+\c@@pps=\count312
+\c@@ppsavesec=\count313
+\c@@ppsaveapp=\count314
+)
+\c@theorem=\count315
  (/usr/local/texlive/2024/texmf-dist/tex/latex/datetime/datetime.sty
 Package: datetime 2015/03/20 v2.60 Date Time Package
  (/usr/local/texlive/2024/texmf-dist/tex/latex/fmtcount/fmtcount.sty
@@ -431,56 +456,56 @@ Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
  (/usr/local/texlive/2024/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/usr/local/texlive/2024/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks33
-\XKV@tempa@toks=\toks34
+\XKV@toks=\toks35
+\XKV@tempa@toks=\toks36
 )
-\XKV@depth=\count312
+\XKV@depth=\count316
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 )) (/usr/local/texlive/2024/texmf-dist/tex/latex/fmtcount/fcprefix.sty
 Package: fcprefix 2012/09/28
  (/usr/local/texlive/2024/texmf-dist/tex/latex/fmtcount/fcnumparser.sty
 Package: fcnumparser 2017/06/15
-\fc@digit@counter=\count313
+\fc@digit@counter=\count317
 )) (/usr/local/texlive/2024/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks35
-\ex@=\dimen273
+\@emptytoks=\toks37
+\ex@=\dimen280
 )
-\c@padzeroesN=\count314
-\fc@tmpcatcode=\count315
-\@DT@modctr=\count316
-\@ordinalctr=\count317
-\@orgargctr=\count318
-\@strctr=\count319
-\@tmpstrctr=\count320
-\@DT@loopN=\count321
-\@DT@X=\count322
+\c@padzeroesN=\count318
+\fc@tmpcatcode=\count319
+\@DT@modctr=\count320
+\@ordinalctr=\count321
+\@orgargctr=\count322
+\@strctr=\count323
+\@tmpstrctr=\count324
+\@DT@loopN=\count325
+\@DT@X=\count326
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/datetime/datetime-defaults.sty
 Package: datetime-defaults 2013/09/10
 )
-\@day=\count323
-\@month=\count324
-\@year=\count325
-\c@HOUR=\count326
-\c@HOURXII=\count327
-\c@MINUTE=\count328
-\c@TOHOUR=\count329
-\c@TOMINUTE=\count330
-\c@SECOND=\count331
-\currenthour=\count332
-\currentminute=\count333
-\currentsecond=\count334
+\@day=\count327
+\@month=\count328
+\@year=\count329
+\c@HOUR=\count330
+\c@HOURXII=\count331
+\c@MINUTE=\count332
+\c@TOHOUR=\count333
+\c@TOMINUTE=\count334
+\c@SECOND=\count335
+\currenthour=\count336
+\currentminute=\count337
+\currentsecond=\count338
 Package datetime Info: No datetime.cfg file found, using default settings on input line 308.
-\@dtctr=\count335
-\dayofyear=\count336
-\dayofweek=\count337
+\@dtctr=\count339
+\dayofyear=\count340
+\dayofweek=\count341
 LaTeX Info: Redefining \today on input line 736.
-\dt@a=\toks36
-\dt@b=\toks37
+\dt@a=\toks38
+\dt@b=\toks39
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-03-14 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count338
-\l__pdf_internal_box=\box64
+\l__color_backend_stack_int=\count342
+\l__pdf_internal_box=\box66
 ) (./main.aux
 
 LaTeX Warning: Label `Z' multiply defined.
@@ -500,24 +525,24 @@ LaTeX Warning: Label `Z' multiply defined.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -553,20 +578,20 @@ LaTeX Font Info:    ... okay on input line 22.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 22.
+Package hyperref Info: Link coloring OFF on input line 24.
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count339
-\scratchdimen=\dimen274
-\scratchbox=\box65
-\nofMPsegments=\count340
-\nofMParguments=\count341
-\everyMPshowfont=\toks38
-\MPscratchCnt=\count342
-\MPscratchDim=\dimen275
-\MPnumerator=\count343
-\makeMPintoPDFobject=\count344
-\everyMPtoPDFconversion=\toks39
+\scratchcounter=\count343
+\scratchdimen=\dimen281
+\scratchbox=\box67
+\nofMPsegments=\count344
+\nofMParguments=\count345
+\everyMPshowfont=\toks40
+\MPscratchCnt=\count346
+\MPscratchDim=\dimen282
+\MPnumerator=\count347
+\makeMPintoPDFobject=\count348
+\everyMPtoPDFconversion=\toks41
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -576,15 +601,15 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count345
+\c@lstlisting=\count349
  (/usr/local/texlive/2024/texmf-dist/tex/latex/fmtcount/fc-english.def
 File: fc-english.def 2016/01/12
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 33.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 35.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 33.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 35.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (./main.toc)
@@ -597,39 +622,39 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 pdfTeX warning (ext4): destination with the same identifier (name{cite.Z}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.219 \clearpage
+l.247 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.Z}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.219 \clearpage
+l.247 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.Z}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.219 \clearpage
+l.247 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.Z}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.219 \clearpage
+l.247 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.Z}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.219 \clearpage
+l.247 \clearpage
                 ] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/03/11 1.10a listings language file
 )
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 230.
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 259.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 230.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 259.
  [6
 
-] (./main.aux)
+] [7] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-03-14>
@@ -640,18 +665,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 24431 strings out of 474104
- 443358 string characters out of 5743467
+ 24672 strings out of 474104
+ 447205 string characters out of 5743467
  1978493 words of memory out of 5000000
- 46343 multiletter control sequences out of 15000+600000
- 566613 words of font info for 69 fonts, out of 8000000 for 9000
+ 46572 multiletter control sequences out of 15000+600000
+ 567219 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,8n,107p,1561b,1516s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,8n,107p,1561b,1572s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (6 pages, 207153 bytes).
+Output written on main.pdf (7 pages, 210813 bytes).
 PDF statistics:
- 279 PDF objects out of 1000 (max. 8388607)
- 240 compressed objects within 3 object streams
- 81 named destinations out of 1000 (max. 500000)
- 165 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 295 PDF objects out of 1000 (max. 8388607)
+ 255 compressed objects within 3 object streams
+ 84 named destinations out of 1000 (max. 500000)
+ 181 words of extra memory for PDF output out of 10000 (max. 10000000)
 
