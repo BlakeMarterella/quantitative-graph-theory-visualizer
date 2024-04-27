@@ -7,14 +7,14 @@
 \contentsline {subsection}{\numberline {2.2}Data Processing}{3}{subsection.2.2}%
 \contentsline {section}{\numberline {3}Portfolio Optimization}{4}{section.3}%
 \contentsline {section}{\numberline {4}Risk Management}{4}{section.4}%
-\contentsline {section}{\numberline {5}Holding Vizualization}{5}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{5}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Future Development}{5}{subsection.6.1}%
-\contentsline {section}{Appendices}{6}{section*.6}%
-\contentsline {section}{\numberline {A}Code}{6}{appendix.1.A}%
-\contentsline {subsection}{\numberline {A.1}Import Historical Stock Data}{6}{subsection.1.A.1}%
-\contentsline {subsection}{\numberline {A.2}Import Historical Stock Data for Portfolio}{6}{subsection.1.A.2}%
-\contentsline {subsection}{\numberline {A.3}Get Pearson Correlation Coefficient}{7}{subsection.1.A.3}%
-\contentsline {subsection}{\numberline {A.4}Display Graph}{7}{subsection.1.A.4}%
-\contentsline {subsection}{\numberline {A.5}Draw Correlation Matrix Graph}{7}{subsection.1.A.5}%
-\contentsline {subsection}{\numberline {A.6}Apply Extremal Graph Theory}{8}{subsection.1.A.6}%
+\contentsline {section}{\numberline {5}Conclusion}{5}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Future Development}{5}{subsection.5.1}%
+\contentsline {section}{Appendices}{7}{section*.7}%
+\contentsline {section}{\numberline {A}Code}{7}{appendix.1.A}%
+\contentsline {subsection}{\numberline {A.1}Import Historical Stock Data}{7}{subsection.1.A.1}%
+\contentsline {subsection}{\numberline {A.2}Import Historical Stock Data for Portfolio}{7}{subsection.1.A.2}%
+\contentsline {subsection}{\numberline {A.3}Get Pearson Correlation Coefficient}{8}{subsection.1.A.3}%
+\contentsline {subsection}{\numberline {A.4}Display Graph}{8}{subsection.1.A.4}%
+\contentsline {subsection}{\numberline {A.5}Draw Correlation Matrix Graph}{8}{subsection.1.A.5}%
+\contentsline {subsection}{\numberline {A.6}Apply Extremal Graph Theory}{9}{subsection.1.A.6}%
+\contentsline {subsection}{\numberline {A.7}Apply Welsh-Powell Coloring Algorithm}{9}{subsection.1.A.7}%

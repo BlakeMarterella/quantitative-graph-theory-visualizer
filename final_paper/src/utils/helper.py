@@ -12,17 +12,9 @@ import json
 BASE_URL = "http://127.0.0.1:5000/"
 
 def visualize_greedy_coloring(portfolio_data, threshold=0.5):
-    # Calculate returns and create a correlation matrix
-    returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
-    returns_df = pd.DataFrame(returns)
-    correlation_matrix = returns_df.corr()
 
     # Construct the graph based on the correlation threshold
-    G = nx.Graph()
-    for stock1 in correlation_matrix.columns:
-        for stock2 in correlation_matrix.index:
-            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > threshold:
-                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
+    G = apply_extremal_graph_theory(portfolio_data, corr_threshold=threshold, max_clique_size=3, draw_graph=False)
 
     # Applying the greedy coloring algorithm
     coloring = nx.greedy_color(G, strategy='largest_first')
@@ -48,47 +40,71 @@ def visualize_greedy_coloring(portfolio_data, threshold=0.5):
 
     return coloring
 
-def visualize_welsh_powell_coloring(portfolio_data, threshold=0.5):
-    # Calculate returns and create a correlation matrix
-    returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
-    returns_df = pd.DataFrame(returns)
-    correlation_matrix = returns_df.corr()
+def display_subgraph_for_color(G, color_map, color_index, custom_colors):
+    """
+    Display a subgraph for nodes of a specific color based on the Welsh-Powell coloring.
 
+    Parameters:
+    G (nx.Graph): The original graph from which the subgraph is derived.
+    color_map (dict): A dictionary mapping each node to a color index.
+    color_index (int): The color index for the subgraph to display.
+    custom_colors (list): A list of colors used in the graph.
+
+    Returns:
+    None: Displays the subgraph using matplotlib.
+    """
+    # Filter nodes by the specified color index
+    filtered_nodes = [node for node, color in color_map.items() if color == color_index]
+    subG = G.subgraph(filtered_nodes)
+
+    # Check if the subgraph is non-empty
+    if not nx.is_empty(subG):
+        # Layout for the subgraph
+        pos = nx.spring_layout(subG)
+
+        # Draw the subgraph
+        plt.figure(figsize=(8, 6))
+        nx.draw(subG, pos, node_color=[custom_colors[color_index]] * subG.number_of_nodes(),
+                with_labels=True, node_size=700, edge_color='gray', linewidths=0.5, font_size=12)
+        plt.title(f"Subgraph for Color Index {color_index + 1} (Color: {custom_colors[color_index]})")
+        plt.axis('off')
+        plt.show()
+    else:
+        print(f"No nodes found for color index {color_index}.")
+
+
+def visualize_welsh_powell_coloring(portfolio_data, threshold=0.5):
     # Construct the graph based on the correlation threshold
-    G = nx.Graph()
-    for stock1 in correlation_matrix.columns:
-        for stock2 in correlation_matrix.index:
-            if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > threshold:
-                G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
+    G = apply_extremal_graph_theory(portfolio_data, corr_threshold=threshold, max_clique_size=3, draw_graph=False)
 
     # Sort nodes by descending degree
     sorted_nodes = sorted(G.nodes(), key=lambda x: G.degree(x), reverse=True)
+    # print(G.degree(sorted_nodes[0]))
+
+    custom_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
 
     # Apply Welsh-Powell coloring algorithm
     color_map = {}
-    available_colors = set(range(len(G.nodes())))  # Maximum colors needed
+    available_colors = set(range(len(custom_colors)))  # Use index of custom colors
     for node in sorted_nodes:
         adjacent_colors = {color_map.get(neighbor) for neighbor in G.neighbors(node)}
         color_map[node] = min(available_colors - adjacent_colors)
 
-    colors = [color_map[node] for node in G.nodes()]
+    # Map colors from indices to custom colors
+    node_colors = [custom_colors[color_map[node]] for node in G.nodes()]
 
     # Prepare the graph layout
     pos = nx.spring_layout(G)
-
-    # Create a color map adjusted to the number of colors used
-    color_list = np.linspace(0, 1, len(set(color_map.values())))
-    cmap = plt.cm.viridis(color_list)
+    
+    # display_subgraph_for_color(G, color_map, 1, custom_colors)
 
     # Draw the graph
-    nx.draw(G, pos, node_color=colors, cmap=plt.cm.viridis, with_labels=True,
-            node_size=700, edge_color='gray', linewidths=0.5, font_size=10)
+    nx.draw(G, pos, node_color=node_colors, with_labels=True, node_size=700, edge_color='gray', linewidths=0.5, font_size=12)
 
     # Draw edge labels showing correlation weights
-    edge_labels = {(u, v): f"{d['weight']:.2f}" for u, v, d in G.edges(data=True)}
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
+    # edge_labels = {(u, v): f"{d['weight']:.2f}" for u, v, d in G.edges(data=True)}
+    # nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
 
-    # Create a legend for the colors
     # Create a legend for the colors
     color_legend = {}
     for node, color in color_map.items():
@@ -96,6 +112,8 @@ def visualize_welsh_powell_coloring(portfolio_data, threshold=0.5):
             color_legend[color].append(node)
         else:
             color_legend[color] = [node]
+
+    print(color_legend)
 
     # Format the legend text to display alongside the graph
     legend_text = "\n".join([f"Color {c+1}: {', '.join(nodes)}" for c, nodes in sorted(color_legend.items())])
@@ -105,12 +123,12 @@ def visualize_welsh_powell_coloring(portfolio_data, threshold=0.5):
 
     plt.title("Welsh-Powell Coloring of Financial Portfolio Correlation Graph")
     plt.axis('off')
-    plt.savefig('welsh_powell_coloring.png')
+    # plt.savefig('welsh_powell_coloring.png')
     plt.show()
 
     return color_map, color_legend
     
-def apply_extremal_graph_theory(portfolio_data, corr_threshold=0.5, max_clique_size=3, image_name=None):
+def apply_extremal_graph_theory(portfolio_data, corr_threshold=0.5, max_clique_size=3, image_name=None, draw_graph=True):
     """
     Generate a graph from a portfolio's correlation matrix and avoid cliques of a certain size
     using extremal graph theory to avoid subgraphs isomorphic to the complete graph on a certain number of vertices.
@@ -121,9 +139,10 @@ def apply_extremal_graph_theory(portfolio_data, corr_threshold=0.5, max_clique_s
     max_clique_size (int): The size of the maximum clique to avoid in the graph.
     image_name(str): The name of the image file to save the graph.
         If not provided, the graph will be displayed but not saved.
+    draw_graph(bool): Whether to draw the graph or not. Default is True.
 
     Returns:
-    None: Displays a graph.
+    nx.Graph: A NetworkX graph object representing the portfolio data with avoided cliques.
     """
     # Calculate the Pearson correlation matrix
     correlation_matrix = get_pearson_correlation_matrix(portfolio_data)
@@ -141,10 +160,12 @@ def apply_extremal_graph_theory(portfolio_data, corr_threshold=0.5, max_clique_s
                 if any(len(clique) >= max_clique_size for clique in nx.find_cliques(G)):
                     G.remove_edge(stock1, stock2)
 
-    draw_graph(G, image_name)
+    if (draw_graph):
+        draw_graph(G, image_name)
 
+    return G
 
-def generate_correlation_graph(portfolio_data, corr_threshold=-1, image_name=None):
+def generate_correlation_graph(portfolio_data, corr_threshold=-1, image_name=None, draw_graph=True):
     """
     Generate a correlation graph for a given portfolio of stocks.
     Each node in the graph represents a stock, and the edges represent the correlation between the stocks.
@@ -158,6 +179,7 @@ def generate_correlation_graph(portfolio_data, corr_threshold=-1, image_name=Non
     corr_threshold (float): The minimum correlation value to include an edge in the graph.
     image_name(str): The name of the image file to save the graph.
         If not provided, the graph will be displayed but not saved.
+    draw_graph(bool): Whether to draw the graph or not. Default is True.
     """
     correlation_matrix = get_pearson_correlation_matrix(portfolio_data)
 
@@ -167,7 +189,8 @@ def generate_correlation_graph(portfolio_data, corr_threshold=-1, image_name=Non
             if stock1 != stock2 and correlation_matrix.loc[stock1, stock2] > corr_threshold:
                 G.add_edge(stock1, stock2, weight=correlation_matrix.loc[stock1, stock2])
 
-    draw_graph(G, image_name)
+    if (draw_graph):
+        draw_graph(G, image_name)
 
 def draw_graph(G, image_name=None):
     """
@@ -228,7 +251,29 @@ def get_pearson_correlation_matrix(portfolio_data):
     returns_df = pd.DataFrame(returns)
 
     return returns_df.corr(method='pearson')
+
+def calculate_roi(portfolio_data, initial_investment=3000):
+    """
+    Calculate the Return on Investment (ROI) for a given portfolio of stocks.
     
+    Parameters:
+    portfolio_data (dict): A dictionary containing the stock data for each ticker.
+    initial_investment (float): The initial investment amount in USD.
+    
+    Returns:
+    float: The Return on Investment (ROI) as a percentage.
+    """
+    returns = {name: df['close'].pct_change() for name, df in portfolio_data.items()}
+    returns_df = pd.DataFrame(returns)
+    column_sums = returns_df.sum()
+    
+    sum = 0
+    for returns in column_sums:
+        sum += returns
+    
+    return abs((sum * initial_investment) - initial_investment) / initial_investment
+    
+ 
 def print_graph_properties(G):
     """
     Print various properties of a graph.

@@ -31,7 +31,7 @@
 \title{
  Math Meets Money \\ 
 \begin{large} 
-The intersection of combinatorics and finance for portfolio optimization and risk assessment
+The intersection of combinatorics and finance for portfolio optimization and risk management
 \end{large} }
 \author{Blake Marterella}
 \date{\displaydate{date}}
@@ -130,23 +130,6 @@ Figure 1 depicts a graph constructed with the correlation matrix that allows us 
 
 The figure has 30 vertices and 435 total edges. The average number of degrees for each vertex is 29, meaning that the average stock is correlated with 29 other stocks in the portfolio. The maximum number of edges possible for an undirected graph without loops and 30 verties is $\binom {30}{2} = \frac{30 (30 - 1)}{2} = 435$ edges. Therefore the graph is dense because the number of edges is equal to the maximum number of edges possible. This is a sign that the portfolio is not well diversified and that there are many stocks that are highly correlated with each other. Additionally, the average correlation strength is 0.303. A diversified portfolio should have a low average correlation strength and a low number of edges. In the next section, we will explore how graph theory can be used to optimize and diversify a portfolio.
 
-
-% % Greedy Coloring Algorithm
-
-% \begin{definition}[Welsch-Powwell Algorithm]
-% \end{definition}
-
-% Go into detail about the coloring alogirthm
-
-
-
-% Briefly define graph theory terms that will be used (vertices, edges, etc.). 
-
-
-% Convert the concept of a portfolio from a spreadsheet to a graph with vertices and edges. This concept is the central point of the paper.
-
-
-
 % [Main Section]
 \section{Portfolio Optimization}
 
@@ -164,42 +147,35 @@ For further optimization, I only allowed an edge to be drawn in the graph if the
     \includegraphics[width=0.7\textwidth]{extremal_graph_theory.png}
 \end{figure}    
 
-
-
 % [Main Section]
 \section{Risk Management}
-Coloring algorithms for risk assesment and management
 
-\begin{itemize}
-    \item Concept Introduction: Explain what graph coloring is and the significance of using different colors.
-    \item Implementation: How coloring can be used to represent different levels of risk or different asset classes.
-    \item Practical Example: A case study where coloring helps in decision-making about asset allocation or identifying over-concentrated sectors
-\end{itemize}
+Now that we have optimized our portfolio, we can use graph coloring to represent different levels of risks and create groupings of stocks that are less correlated with each other. By partinitioning the graph using a coloring algorithm, we can determine the most optimial holding strategy for our portfolio.
 
+\begin{definition}[Welsh-Powell Coloring Algorithm]
+A graph coloring algorithm that assigns colors to vertices, such that no two adjacent vertices share the same color. The algorithm starts with the vertex with the highest degree and assigns the first color. It then finds all adjacent vertices and assigns a different color. The algorithm continues to color the remaining vertices in descending order of degree until all have been colored. 
+\end{definition}
 
-% [Main Section]
-\section{Holding Vizualization}
+In the context of the optimized graph (constructed using extremal graph theory in the section above), the vertex with the highest degree is "AAPL" which has 26 total edges. AAPL is colored blue and the 26 adjacent vertices are colored orange. From here, there are only 3 remaining vertices which all do not happen to be neighbors. Therefore, our graph only needs 2 colors to represent the entire portfolio. The graph is shown in Figure 3.
 
-Correlation Graphs for Portfolio Holdings
+\begin{figure}[h]
+    \caption{Welsh-Powell coloring algorithm applied to the optimized graph}
+    \centering
+    \includegraphics[width=0.7\textwidth]{welsh_powell_coloring.png}
+\end{figure}
 
-\begin{itemize}
-    \item Graph Construction: Discuss how to build a graph where vertices represent assets and edges represent correlations between returns.
-    \item Analysis Techniques: Use threshold levels to add/remove edges or use weights to show the strength of correlations.
-    \item Visualization: Include a section on how these graphs can visually represent portfolio diversification and the interconnections between assets.
-\end{itemize}
-
+After coloring the graph, we can see that the portfolio is divided into two groups: blue and orange. Each of these groups represents a diversified portfolio that contains stocks less correlated with each other, thereby reducing the overall risk of the portfolio. The blue group contains 26 stocks and the orange group contains 4 stocks. The orange group is less risky than the orange group because it contains more stocks and is more diversified. The blue group is more risky because it contains fewer stocks and is less diversified. By using graph coloring, we can easily visualize the risk of our portfolio and make informed decisions on how to adjust our holdings. 
 
 \section{Conclusion}
 
-\begin{itemize}
-    \item Summary: Recap how graph theory enhances portfolio management.
-    \item Future Directions: Suggest how further research could integrate other combinatorial techniques or advanced graph theory concepts.
-    \item Open Problems: Pose any unresolved questions or potential for new research that your paper hints at.
-\end{itemize}
+Using the orange group of stocks and the unmodified sample portfolio, we can quantify the effectiveness of the graph theory concepts explored in this paper. To test, say you invested \$100 into each stock in the original portfolio on April 24, 2020. After 4 years, there would be a 32.87\% return on investment. However, using the filtered orange group of stocks with the same investment stragey, the return on investment would be 67.91\%. This is over a 100\% increase in return on investment by using the graph theory concepts explored in this paper. In summary, the concepts of graph theory can be used to optimize and diversify a stock portfolio, thereby reducing risk and increasing return on investment. 
 
 
 \subsection{Future Development}
 
+Althought the Welsh-Powell coloring algorithm is a powerful tool for risk management, it is not the only tool available. There are many other graph coloring algorithms that can be used to partition a graph into different groups, some do it more optimally than others. One example is a backtracking algorithm which will correct coloring if a conflict arises, thereby helping ensure that the graph is colored with the minimum number of colors [AB2023]. This comes at the cost of complexity.
+
+For further optimization, there are more complex graph theory concepts can be applied to not only manage a portfolio but execute trades at the perfect time. 
 
 \bibliographystyle{alpha}
 \begin{thebibliography}{99}
@@ -215,15 +191,15 @@ Correlation Graphs for Portfolio Holdings
     % https://www.scribbr.com/statistics/pearson-correlation-coefficient/
     \bibitem[ST2024]{Z}
     S. Turney, \emph{Pearson Correlation Coefficent}, Scribbr (2024).
-    % https://evoq-eval.siam.org/Portals/0/Publications/SIURO/Volume%2010/Analysis_Equity_Markets_A_Graph_Theory_Approach.pdf
-    % \bibitem[JAJCDBRGZC2017]{Z}
-    % J. R. Abrams, J. C., D. B., R. G., Z. C., \emph{Analysis of Equity Markets: A Graph Theory Approach}, The University of Arizona, Department of Mathematics (2017).
     % https://www.fool.com/investing/2018/07/23/a-foolish-take-how-often-do-dow-stocks-get-replace.aspx
     \bibitem[DC2018]{Z}
     D. Caplinger, \emph{How Often Do Dow Stocks Get Replaced}, The Motley Fool (2018).
     % https://www.marterella.com/projects/stock-market-api
     \bibitem[BM2024]{Z}
     B. Marterella \emph{Stock Market API}, marterella.com (2024).
+    % https://faun.pub/understanding-graph-coloring-an-essential-concept-in-graph-theory-c40de8421745
+    \bibitem[AB2023]{Z}
+    A. Bhuyan \emph{Understanding Graph Coloring}, Medium, FAUN - Developer Community (2023).
 \end{thebibliography}
 
 \clearpage
@@ -363,6 +339,36 @@ def apply_extremal_graph_theory(portfolio_data, corr_threshold=-1, max_clique_si
                     G.remove_edge(stock1, stock2)
 
     draw_graph(G, image_name)
+\end{lstlisting}
+
+\subsection{Apply Welsh-Powell Coloring Algorithm}
+
+\begin{lstlisting}[language=python]
+def visualize_welsh_powell_coloring(portfolio_data, threshold=0.5):
+    G = apply_extremal_graph_theory(portfolio_data)
+
+    # Sort nodes by descending degree
+    sorted_nodes = sorted(G.nodes(), key=lambda x: G.degree(x), reverse=True)
+
+    custom_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
+
+    # Apply Welsh-Powell coloring algorithm
+    color_map = {}
+    available_colors = set(range(len(custom_colors)))  # Use index of custom colors
+    for node in sorted_nodes:
+        adjacent_colors = {color_map.get(neighbor) for neighbor in G.neighbors(node)}
+        color_map[node] = min(available_colors - adjacent_colors)
+
+    # Map colors from indices to custom colors
+    node_colors = [custom_colors[color_map[node]] for node in G.nodes()]
+
+    # Prepare the graph layout
+    pos = nx.spring_layout(G)
+
+    # Draw the graph
+    nx.draw(G, pos, node_color=node_colors, with_labels=True, node_size=700, edge_color='gray', linewidths=0.5, font_size=12)
+    plt.axis('off')
+    plt.show()
 \end{lstlisting}
 
 \end{appendices}
