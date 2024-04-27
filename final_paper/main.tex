@@ -51,11 +51,11 @@ In this study we will explore the intersection of combinatorics and finance, spe
 
 Mathematics has always been a powerful tool for humans to discover and describe seemingly complex patterns in the natural world. From the ancient days of arithemetic used to facilitate trade to the complex algorithms governing modern financial markets, mathematics has been an indispensable tool. The pivotal moment in the incorporation of mathematics into finance occured in 1654 when two great mathematicians, Blaise Pascal and Pierre de Fermat, developed probability theory to help predict the outcome of gambling [KD2010]. The ideas introduced in 1654 would evolve and help create the first automated trading system in 1949. Richard Donchian founded a commodity fund that used rule-based trading to execute trades based on moving averages in the market [LS2023]. These early pioneers set the stage for a methematical framework that would evolve into critical financial theories such as portfolio opimization, diversification, and risk management. In 2023, over 50\% of all trades in the US stock market were executed by algorithms [LS2023]. A critical tool in financal analysis is graph theory which can be used to represent the relationships between various stocks in a portfolio and help investors make more informed decisions.
 
-% TODO revise the last two sentences for commas
+
 
 \subsection{Interest}
 
-The integration of combinatorics and finance, especially by the use of graph theory, is interesting for two main reasons. First, it provides a more comprehensive view to the correlations and diversification within a financial portfolio. Graph theory translates complex market dynamics into comprehensible, manageable models, allowing investors to visualize portfolio holdings in a new perspective and make informed decisions. Secondly, with the strategic application of graph theory, any individual's holdings can be optimized in such a way that investments remain not only sound but also resilient against market volatities. With the proper mathematical tools, any investor can have the power to make informed decisions just as large investment firms do.
+The integration of combinatorics and finance, especially by the use of graph theory, is interesting for two main reasons. First, it provides a more comprehensive view to the correlations and diversification within a financial portfolio. Graph theory translates complex market dynamics into comprehensible, manageable models, allowing investors to visualize portfolio holdings in a new perspective and make informed decisions.Secondly, by strategically applying graph theory, individuals can optimize their holdings to ensure that their investments are not only secure but also resilient against market volatility. Armed with the right mathematical tools, any investor can make informed decisions on par with large investment firms.
 
 \subsection{Motivation}
 
@@ -137,7 +137,7 @@ The figure has 30 vertices and 435 total edges. The average number of degrees fo
 \begin{definition}[Extremal Graph Theorem] Let $G$ be a graph with $n$ vertices and $m$ edges. Then, if $G$ does not contain a subgraph isomorphic to $K_{r+1}$, the complete graph on $r+1$ vertices, then $m \leq \frac{r}{2}(n-1)$.
 \end{definition}
 
-Extremal Graph Thoerem is a powerful tool in portfolio optimiziation. The theorem can be particularly useful in preventing over-concentration of correlated assets, thus enhancing the robustness of the portfolio against market volatility. The theorem states that if a graph does not contain a subgraph isomorphic to $K_{r+1}$, then the number of edges in the graph is bounded by $\frac{r}{2}(n-1)$. In the context of a stock portfolio, avoiding a subgraph $K_{r+1}$ means ensuring that no group of $r+1$ stocks are all heavily correlated with each other. This helps in spreading out the investment risk by limiting the number of direct correlations any single stock has within the portfolio, thus achieving a higher degree of diversification. For example, a conservative portfolio may want to exclude any subset of 3 stocks from being mutually interconnected. In this case, $r = 3$ and $n = 30$ (since the portfolio contains 30 stocks). By applying the theorem, we can calculate the maximum number of edges allowed in the graph to maintain a diversified portfolio.
+Extremal Graph Thoerem is a powerful tool in portfolio optimiziation. Using our stock portfolio, avoiding a subgraph $K_{r+1}$ means that no group of $r+1$ stocks are correlated with each other. This will improve diversification and tolerance to market volatility by limiting the number of correlations for any given stock. For example, a conservative portfolio may want to exclude any subset of 3 stocks from being mutually interconnected. In this case, $r = 3$ and $n = 30$ (since the portfolio contains 30 stocks). By applying the theorem, we can calculate the maximum number of edges allowed in the graph to maintain a diversified portfolio.
 
 For further optimization, I only allowed an edge to be drawn in the graph if the correlation between two stocks was less than .2. This number was selected as it is less than the average correlations strength of the original graph show in Figure 1. Figure 2 shows a graph that does not contain cliques of size 3 or more and has a correlation threshold of .5. The resulting graph, shown in Figure 2, still has 30 nodes but the number of edges has been reduced to only 74. The average correlation strength for the graph is 0.08.
 
@@ -164,7 +164,7 @@ In the context of the optimized graph (constructed using extremal graph theory i
     \includegraphics[width=0.7\textwidth]{welsh_powell_coloring.png}
 \end{figure}
 
-After coloring the graph, we can see that the portfolio is divided into two groups: blue and orange. Each of these groups represents a diversified portfolio that contains stocks less correlated with each other, thereby reducing the overall risk of the portfolio. The blue group contains 26 stocks and the orange group contains 4 stocks. The orange group is less risky than the orange group because it contains more stocks and is more diversified. The blue group is more risky because it contains fewer stocks and is less diversified. By using graph coloring, we can easily visualize the risk of our portfolio and make informed decisions on how to adjust our holdings. 
+After coloring the graph, we can see that the portfolio is divided into two groups: blue and orange. Each of these groups represents a diversified portfolio that contains stocks less correlated with each other, thereby reducing the overall risk of the portfolio. The blue group contains 26 stocks and the orange group contains 4 stocks. The orange group is less risky than the blue group because it contains more stocks and is more diversified. The blue group is more risky because it contains fewer stocks and is less diversified. By using graph coloring, we can easily visualize the risk of our portfolio and make informed decisions on how to adjust our holdings. 
 
 \section{Conclusion}
 
@@ -173,12 +173,25 @@ Using the orange group of stocks and the unmodified sample portfolio, we can qua
 
 \subsection{Future Development}
 
-Althought the Welsh-Powell coloring algorithm is a powerful tool for risk management, it is not the only tool available. There are many other graph coloring algorithms that can be used to partition a graph into different groups, some do it more optimally than others. One example is a backtracking algorithm which will correct coloring if a conflict arises, thereby helping ensure that the graph is colored with the minimum number of colors [AB2023]. This comes at the cost of complexity.
+Although the Welsh-Powell coloring algorithm is a powerful tool for risk management, it is not the only tool available. There are many other graph coloring algorithms that can be used to partition a graph into different groups, some do it more optimally than others. One example is a backtracking algorithm which will correct coloring if a conflict arises, thereby helping ensure that the graph is colored with the minimum number of colors [AB2023]. This comes at the cost of complexity.
 
-For further optimization, there are more complex graph theory concepts can be applied to not only manage a portfolio but execute trades at the perfect time. 
+For further optimization, more advanced graph theory concepts can be utilized to not only manage a portfolio effectively, but also to execute trades at the optimal moment.
+
+
+
+
 
 \bibliographystyle{alpha}
 \begin{thebibliography}{99}
+    % https://faun.pub/understanding-graph-coloring-an-essential-concept-in-graph-theory-c40de8421745
+    \bibitem[AB2023]{Z}
+    A. Bhuyan \emph{Understanding Graph Coloring}, Medium, FAUN - Developer Community (2023).
+    % https://www.marterella.com/projects/stock-market-api
+    \bibitem[BM2024]{Z}
+    B. Marterella \emph{Stock Market API}, marterella.com (2024).
+    % https://www.fool.com/investing/2018/07/23/a-foolish-take-how-often-do-dow-stocks-get-replace.aspx
+    \bibitem[DC2018]{Z}
+    D. Caplinger, \emph{How Often Do Dow Stocks Get Replaced}, The Motley Fool (2018).
     % https://maa.org/sites/default/files/images/upload_library/46/NCTM/The-Pascal-Fermat-Correspondence.pdf
     \bibitem[KD2010]{Z}
     K. Devlin, \emph{The Pascal-Fermat Correspondance}, Mathematics Teacher, Vol. 103 \textbf{No. 8}, National Council of Teachers of Mathematics (2010), 580-582.
@@ -191,15 +204,6 @@ For further optimization, there are more complex graph theory concepts can be ap
     % https://www.scribbr.com/statistics/pearson-correlation-coefficient/
     \bibitem[ST2024]{Z}
     S. Turney, \emph{Pearson Correlation Coefficent}, Scribbr (2024).
-    % https://www.fool.com/investing/2018/07/23/a-foolish-take-how-often-do-dow-stocks-get-replace.aspx
-    \bibitem[DC2018]{Z}
-    D. Caplinger, \emph{How Often Do Dow Stocks Get Replaced}, The Motley Fool (2018).
-    % https://www.marterella.com/projects/stock-market-api
-    \bibitem[BM2024]{Z}
-    B. Marterella \emph{Stock Market API}, marterella.com (2024).
-    % https://faun.pub/understanding-graph-coloring-an-essential-concept-in-graph-theory-c40de8421745
-    \bibitem[AB2023]{Z}
-    A. Bhuyan \emph{Understanding Graph Coloring}, Medium, FAUN - Developer Community (2023).
 \end{thebibliography}
 
 \clearpage
@@ -208,7 +212,7 @@ For further optimization, there are more complex graph theory concepts can be ap
     
 \section{Code}
 
-Note that the code below was modified from its original form to only show the relavant information. For example, function docstrings, input validation, etc. have been removed for brevity.
+Note that the code below was modified from its original form to only show the relavant information. For example, function docstrings, input validation, etc. have been removed for brevity.  
 
 \subsection{Import Historical Stock Data}
 

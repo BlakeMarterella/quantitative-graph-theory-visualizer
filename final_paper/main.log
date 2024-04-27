@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.22)  26 APR 2024 22:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.22)  26 APR 2024 23:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -703,7 +703,7 @@ File: ./images/extremal_graph_theory.png Graphic file (type png)
 Package pdftex.def Info: ./images/extremal_graph_theory.png  used on input line 147.
 (pdftex.def)             Requested size: 349.06227pt x 211.49756pt.
  [4 <./images/extremal_graph_theory.png>]
-<./images/welsh_powell_coloring.png, id=94, 462.528pt x 346.896pt>
+<./images/welsh_powell_coloring.png, id=95, 462.528pt x 346.896pt>
 File: ./images/welsh_powell_coloring.png Graphic file (type png)
 <use ./images/welsh_powell_coloring.png>
 Package pdftex.def Info: ./images/welsh_powell_coloring.png  used on input line 164.
@@ -712,101 +712,101 @@ Package pdftex.def Info: ./images/welsh_powell_coloring.png  used on input line 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.Z}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.205 \clearpage
+l.209 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.Z}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.205 \clearpage
+l.209 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.Z}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.205 \clearpage
+l.209 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.Z}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.205 \clearpage
+l.209 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.Z}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.205 \clearpage
+l.209 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.Z}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.205 \clearpage
+l.209 \clearpage
                 ] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/03/11 1.10a listings language file
 )
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 217.
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 221.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 217.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 221.
  [7
 
 ]
-Overfull \hbox (11.3426pt too wide) in paragraph at lines 270--271
+Overfull \hbox (11.3426pt too wide) in paragraph at lines 274--275
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 315.
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 319.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 315.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 319.
 
-Overfull \hbox (53.34303pt too wide) in paragraph at lines 315--316
+Overfull \hbox (53.34303pt too wide) in paragraph at lines 319--320
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (35.34285pt too wide) in paragraph at lines 316--318
+Overfull \hbox (35.34285pt too wide) in paragraph at lines 320--322
 [][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 [8]
-Overfull \hbox (17.34267pt too wide) in paragraph at lines 326--327
+Overfull \hbox (17.34267pt too wide) in paragraph at lines 330--331
 [][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (53.34303pt too wide) in paragraph at lines 333--334
+Overfull \hbox (53.34303pt too wide) in paragraph at lines 337--338
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (35.34285pt too wide) in paragraph at lines 335--337
+Overfull \hbox (35.34285pt too wide) in paragraph at lines 339--341
 [][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (17.34267pt too wide) in paragraph at lines 337--338
+Overfull \hbox (17.34267pt too wide) in paragraph at lines 341--342
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (29.34279pt too wide) in paragraph at lines 338--339
+Overfull \hbox (29.34279pt too wide) in paragraph at lines 342--343
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (17.34267pt too wide) in paragraph at lines 353--355
+Overfull \hbox (17.34267pt too wide) in paragraph at lines 357--359
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (11.3426pt too wide) in paragraph at lines 359--360
+Overfull \hbox (11.3426pt too wide) in paragraph at lines 363--364
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (251.34505pt too wide) in paragraph at lines 369--370
+Overfull \hbox (251.34505pt too wide) in paragraph at lines 373--374
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
@@ -831,7 +831,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  102i,8n,107p,1342b,1583s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on main.pdf (9 pages, 1820154 bytes).
+Output written on main.pdf (9 pages, 1819809 bytes).
 PDF statistics:
  419 PDF objects out of 1000 (max. 8388607)
  366 compressed objects within 4 object streams
